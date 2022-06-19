@@ -1,0 +1,312 @@
+
+
+<input type="checkbox" name="" id="sideMenu_Toggle">
+
+<%- include('common/sideMenu'); -%>
+
+<!-- ===================main content============= -->
+<div class="main_content">
+ 
+  
+  <%- include('common/header'); -%>
+
+    <main>
+
+        <div class="page_header">
+            <div>
+                <h1><%= title %></h1><br/>
+                <!-- <small>Welcome ayt store. check reporting and review insights</small> -->
+            </div>
+        </div>     
+        
+        <hr class="line">
+
+        <div class="form_section">
+            <form class="row g-3 needs-validation" action="/addEmployee" method="POST" enctype="multipart/form-data" novalidate>
+
+                <% if(messages.error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Something went wrong !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.error %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>   
+
+                <% if(messages.success) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Success !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.success %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %> 
+
+                <div class="col-md-4">
+                    <label for="validationCustom001" class="form-label">Employee Id<span>*</span></label>
+                    <input type="number" min="3" class="form-control input_field" name="emp_id" id="validationCustom001"  required>
+                    <div class="invalid-feedback">
+                        Please provide a employeeID.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">Username<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="username" id="validationCustom01"  required>
+                    <!-- <div class="valid-feedback">
+                        Looks good!
+                    </div> -->
+                    <div class="invalid-feedback">
+                        Please provide a username.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom002" class="form-label">First Name<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="first_name" id="validationCustom002"  required>
+                    <div class="invalid-feedback">
+                        Please provide a first name.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom003" class="form-label">Last Name<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="last_name" id="validationCustom003"  required>
+                    <div class="invalid-feedback">
+                        Please provide a Last Name.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom004" class="form-label">Father Name<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="father_name" id="validationCustom004"  required>
+                    <div class="invalid-feedback">
+                        Please provide a Father Name.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom005" class="form-label">D.O.B<span>*</span></label>
+                    <input type="date" max="2022-01-01" class="form-control input_field" name="DOB" id="validationCustom005"  required>
+                    <div class="invalid-feedback">
+                        Please provide a valid employee date of birth.
+                    </div>
+                </div> 
+
+                <div class="col-md-4">
+                    <label for="validationCustom02" class="form-label">Email <span>*</span></label>
+                    <input class="form-select input_field" id="validationCustom02" name="email" required>
+                    <small class="note"><b>Note:-</b> Ex:- This email is your login-id</small>
+                    <div class="invalid-feedback">
+                    Please provide a email.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom03" class="form-label">Password <span>*</span></label>
+                    <input type="password" class="form-control input_field" name="password" id="validationCustom03"  required>
+                    <div class="invalid-feedback">
+                    Please provide valid password.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom05" class="form-label">Contact 1<span>*</span></label>
+                    <input type="text" pattern="[0-9]{10}" class="form-control input_field" name="contact_1" id="validationCustom05"  required>
+                    <div class="invalid-feedback">
+                        Please provide valid 10 digit contact number 1.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom06" class="form-label">Contact 2</label>
+                    <input type="text" pattern="[0-9]{10}" class="form-control input_field" name="contact_2" id="validationCustom06"  >
+                    <!-- <div class="invalid-feedback">
+                        Please provide valid contact 1.
+                    </div> -->
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom07" class="form-label">Address H.N <span>*</span></label>
+                    <input type="text" class="form-control input_field" name="address_HN" id="validationCustom07"  required>
+                    <div class="invalid-feedback">
+                       Please provide Address H.N
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom08" class="form-label">Address Street <span>*</span></label>
+                    <input type="text" class="form-control input_field" name="address_street" id="validationCustom08"  required>
+                    <div class="invalid-feedback">
+                       Please provide Address Street
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom09" class="form-label">Address City <span>*</span></label>
+                    <input type="text" class="form-control input_field" name="address_city" id="validationCustom09"  required>
+                    <div class="invalid-feedback">
+                       Please provide Address City
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom10" class="form-label">Ref. 1<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ref_1" id="validationCustom10"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Ref 1
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom11" class="form-label">Ref. 2<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ref_2" id="validationCustom11"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Ref 2
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom12" class="form-label">Ref. 3<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ref_3" id="validationCustom12"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Ref 3
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom13" class="form-label">Ref. 1 Detail<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ref_1_detail" id="validationCustom13"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Ref 1 Detail
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom14" class="form-label">Ref. 2 Detail<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ref_2_detail" id="validationCustom14"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Ref 2 Detail
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom15" class="form-label">Ref. 3 Detail<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ref_3_detail" id="validationCustom15"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Ref 3 Detail
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom16" class="form-label">Bank Name<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="bank_name" id="validationCustom16"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Bank Name
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom17" class="form-label">Bank Account<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="bank_account" id="validationCustom17"  required>
+                    <div class="invalid-feedback">
+                       Please provide a Bank Account
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom18" class="form-label">ID Number<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ID_number" id="validationCustom18"  required>
+                    <div class="invalid-feedback">
+                       Please provide a ID Number
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom19" class="form-label">ID Type<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="ID_type" id="validationCustom19"  required>
+                    <div class="invalid-feedback">
+                       Please provide a ID Type
+                    </div>
+                </div>
+
+                
+
+                <div class="col-md-4">
+                    <label for="validationCustom20" class="form-label">Employee Type<span>*</span></label>
+                    <select class="form-select input_field" id="validationCustom20" name="userType"  required>
+                        <option value="">Choose...</option>
+                        <option value="Admin">Admin</option>
+                        <!-- <option value="Customer" disabled>Customer</option> -->
+                        <option value="Surveyor">Surveyor</option>
+                        <option value="Report Editor">Report Editor</option>
+                    </select>
+                    <div class="invalid-feedback">
+                       Please select a User Type.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom21" class="form-label">Status <span>*</span></label>
+                    <select class="form-select input_field" id="validationCustom21" name="status"  required>
+                        <option value="">Choose...</option>
+                        <option value="Active" selected>Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <div class="invalid-feedback">
+                       Please select a status.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom22" class="form-label">Create By<span>*</span></label>
+                    <input type="text" class="form-control input_field" name="create_by" value="<%= userName %> - <%= userType %>" id="validationCustom22"  required readonly>
+                    <div class="invalid-feedback">
+                        Please provide a create By.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustom23" class="form-label">User Profile </label>
+                    <input type="file" class="form-control input_field" name="profileImage" id="validationCustom23" onchange="getImagePath(event)" >
+                    
+                </div>
+
+                <div class="col-md-2">
+                    <div class="uploadImg_div">
+
+                    </div>
+                </div>
+
+                
+
+                
+
+                <div class="col-12 text-center mt-4 form_btn">
+                <button class="btn btn-sm btn-primary submit_btn" type="submit">Submit form</button> &nbsp;
+                <a href="/allEmployees" class="btn btn-sm btn-dark submit_btn">Back</a>
+                </div>
+                <br/><br/><br/>
+            </form>
+        </div>    
+
+
+
+
+    </main>
+</div>
+
+ 
+
+<script>
+    $(document).ready(function(){
+        $("#allEmployees").addClass('active');
+    })
+
+    const uploadImg = document.querySelector('.uploadImg_div');
+    function getImagePath(event){
+      console.log(event);
+      var file = URL.createObjectURL(event.target.files[0]);
+      console.log(file);
+      uploadImg.innerHTML = "<img src='"+file+"'>";
+   }
+</script>

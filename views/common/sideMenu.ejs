@@ -1,0 +1,147 @@
+<div class="sideBar">
+    <div class="sideBar_brand">
+        <div class="brand_flex">
+            <!-- <img src="/images/rk.jpg" alt=""> -->
+            <div class="brand">
+                <!-- <i class="fab fa-reddit"></i> -->
+                <h1>Val<span>Desk</span></h1>
+            </div>
+            <!-- <div class="brand_icons">
+                <span><i class="far fa-bell"></i></span>
+                <span><i class="far fa-user-circle"></i></span>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- ======main sidebar======= -->
+    <div class="sidebar_main">
+        <div class="sidebar_user">
+
+            <% if(!userImage) { %>
+                <img src="/images/avatar.svg" alt="">
+            <% } else { %>  
+                <img src="/uploadProfileImage/<%= userImage %>" alt=""> 
+            <% } %> 
+            
+            <div class="admin_text">
+                <h3> <%= userName %> </h3>
+                <h6> <%= userEmail %> </h6>
+            </div>
+        </div>
+
+        <!-- ========menu======= -->
+        <div class="sidebar_menu">
+
+            <div class="menu_head">
+                <span>Dashboard</span>
+            </div>
+            <ul>
+                <li>
+                    <a href="/home" id="home">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        Home
+                    </a>
+                </li>
+
+                <!-- <%= userType %>  -->
+
+                <% if(userType == "Admin") { %>
+                <li>
+                    <a href="/allCities" id="allCities">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        City Master
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+
+            <% if(userType == "Admin") { %>
+            <div class="menu_head">
+                <span>Employees</span>
+            </div>
+            <ul>
+                <li>
+                    <a href="/allEmployees" id="allEmployees">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        All Employees
+                    </a>
+                </li>
+            </ul>
+            <% } %>
+
+            <% if(userType == "Admin") { %>
+            <div class="menu_head">
+                <span>Bank Details</span>
+            </div>
+            <ul>
+                <li>
+                    <a href="/allBanks" id="allBank">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        All Banks 
+                    </a>
+                </li>
+                <li>
+                    <a href="/allBranches" id="allBranches">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        All Branches 
+                    </a>
+                </li>
+                <li>
+                    <a href="/allBranchManagers" id="allBranchManager">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        All Branch Managers 
+                    </a>
+                </li>
+            </ul>
+            <% } %>
+
+            <div class="menu_head">
+                <span>Leads</span>
+            </div>
+            <ul>
+                <% if(userType == 'Admin') { %>
+                <li>
+                    <a href="/allLeads" id="allLeads">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        All Leads
+                    </a>
+                </li>
+                <% } %>
+
+                <li>
+                    <a href="/addLead" id="addLead">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        Add Lead
+                    </a>
+                </li>
+
+                <% if(userType == 'Surveyor') { %>
+                <li>
+                    <a href="/myLeads/<%= userId %>" id="myLeads">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                        My Leads
+                    </a>
+                </li>
+                <% } %>
+
+                <% if(userType == 'Report Editor') { %>
+                    <li>
+                        <a href="/leadReports/<%= userId %>" id="allLeads">
+                            <i class="fas fa-long-arrow-alt-right"></i>
+                            Lead Reports
+                        </a>
+                    </li>
+                <% } %>
+            
+
+
+            </ul>
+
+          
+        </div>
+    </div>
+    
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

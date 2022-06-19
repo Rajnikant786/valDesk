@@ -1,0 +1,574 @@
+<input type="checkbox" name="" id="sideMenu_Toggle">
+
+<!-- ===================side menu============= -->
+<%- include('common/sideMenu'); -%>
+
+<!-- ===================main content============= -->
+<div class="main_content">
+
+    <%- include('common/header'); -%>
+
+    <main>
+        <div class="page_header">
+            <div>
+                <h1><%= title %></h1><br/>
+                <!-- <small>Welcome ayt store. check reporting and review insights</small> -->
+            </div>
+        </div>
+
+        <hr class="line"> 
+
+        <!-- ======= showDocumentsModal ===================== -->
+        <div class="modal fade upload_modal" id="showDocumentsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Upload Documents</h5> <!-- <span id="uploadedBy_text"></span>-->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body form_section">
+
+                        <form class="needs-validation" action="/uploadLeadDocuments" method="POST"  enctype="multipart/form-data" id="submitLeadDoc_notUse" novalidate> <!--uploadLeadDocuments-->
+
+                            <div id="serverRespBox">
+    
+                            </div> 
+
+                            <input type="hidden" name="uploaded_by" value="<%= userName %> - <%= userType %>">
+                            <input type="hidden" class="form-control form-control-sm input_field" name="lead_id" id="row_leadId" readonly>
+                            
+                            <div id="doc_leadId" class="ids_text"></div>
+
+                            <div class="card fieldshet_container form_fieldshet mt-3" id="allDocumentsFieldshet">
+                                <fieldset>
+                                    <legend>Document details<span class="text-danger">*</span></legend>
+                                    
+                                    <div id="uploadDoc_Msg">
+
+                                    </div>
+                                    <div id="uploadDocumentBody">
+                                        
+                                    </div>
+
+                                    <button class="btn btn-sm btn-success" id="uploadMoreDocBtn" type="button">Upload More Documents</button>
+                                </fieldset>
+                            </div>
+                            
+                            <div class="card fieldshet_container form_fieldshet mt-3" id="documentForm">
+                                <fieldset>
+                                    <legend>Upload Documents<span class="text-danger">*</span></legend>
+
+                                    <div class="row mb-3">
+                                            <div class="col-6">
+                                                <label for="">Document<span>*</span></label>
+                                                <input type="file" class="form-control form-control-sm input_field" name="leadDocument" required>
+                                                <div class="invalid-feedback">
+                                                    Please choose lead document file or image
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="">Document Type<span>*</span></label>
+                                                    <select class="form-select form-select-sm input_field" name="document_type"  id="row_status" required> <!--onchange="this.form.submit()"-->
+                                                        <option value="" >choose...</option>
+                                                        <option value="Sale Deed">
+                                                            Sale Deed
+                                                        </option>
+                                                        <option value="Registory" >
+                                                            Registory
+                                                        </option>                                            
+                                                        <option value="Agreement">
+                                                            Agreement
+                                                        </option>
+                                                        <option value="Photo Interior">
+                                                            Photo Interior
+                                                        </option>
+                                                        <option value="Photo Exterior">
+                                                            Photo Exterior
+                                                        </option>  
+                                                        <option value="NEC" >
+                                                            NEC
+                                                        </option> 
+                                                        <option value="House Plan" >
+                                                            House Plan
+                                                        </option> 
+                                                        <option value="Layout Plan" >
+                                                            Layout Plan
+                                                        </option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please select a document type.
+                                                    </div>
+                                            </div>
+                                            <br>
+                                            <div class="col-12">
+                                                <label for="">Remarks<span>*</span></label>
+                                                <textarea class="form-control form-control-sm input_field" name="remarks" id="" cols="" rows="3" placeholder="Remarks" required></textarea>      
+                                                <div class="invalid-feedback">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                </fieldset>
+                            </div>
+
+                            <!-- <div class="card fieldshet_container form_fieldshet mt-5">
+                                <fieldset>
+                                    <legend>Lead details<span class="text-danger">*</span></legend>
+
+                                </fieldset>
+                            </div> -->
+                        
+                            <!-- ======== document show========= -->
+                            <!-- <div id="uploadDoc_Msg">
+
+                            </div>
+                            <div id="uploadDocumentBody">
+                                
+                            </div> -->
+                            <!-- =============================== -->
+                            <div class="col-12 text-center mt-4 form_btn">
+                                <button class="btn btn-sm btn-primary submit_btn" id="submitDoc_btn" type="submit">Submit form</button> &nbsp;
+                                <!-- <a href="javascript:void(0)" onclick="loadClientList()" class="btn btn-sm btn-dark submit_btn">Back</a> -->
+                                <button type="button" class="btn btn-sm btn-dark submit_btn" data-bs-dismiss="modal">Close</button>
+                            </div> 
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======= showSurveyorModal ====================== -->
+        <div class="modal fade upload_modal" id="showSurveyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Surveyor Lead Action</h5> <!-- <span id="uploadedBy_text"></span>-->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body form_section">
+
+                        <form class="needs-validation" action="" method="POST"  enctype="multipart/form-data" id="submitLeadDoc_notUse" novalidate> <!--uploadLeadDocuments-->
+
+                            <div id="serverRespBox">
+    
+                            </div> 
+
+                            <input type="hidden" name="uploaded_by" value="<%= userName %> - <%= userType %>">
+                            <!-- <input type="hidden" class="form-control form-control-sm input_field" name="lead_id" id="row_survey_leadId" readonly> -->
+                            
+                            <div id="survey_leadId" class="ids_text"></div>
+
+                            <div class="card fieldshet_container form_fieldshet mt-3" id="allDocumentsFieldshet">
+                                <fieldset>
+                                    <legend>Lead details<span class="text-danger">*</span></legend>
+                             
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="row_survey_leadId" class="form-label">Survey Lead Id<span>*</span></label>
+                                            <input type="text" class="form-control  input_field" name="lead_id" id="row_survey_leadId"  required readonly>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid lead Id.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="row_survey_leadId" class="form-label">Date<span>*</span></label>
+                                            <input type="date" class="form-control  input_field" name="date"  id="createDate">
+                                            <div class="invalid-feedback">
+                                                Please provide a date.
+                                            </div>
+                                        </div>
+                                    </div>    
+
+                                </fieldset>
+
+                                <br>
+
+                                <fieldset>
+                                    <legend>Bank details<span class="text-danger">*</span></legend>
+                             
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="bankName" class="form-label">Bank Name<span>*</span></label>
+                                            <input type="text" class="form-control  input_field" name="bank_name" id="bankName"  required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Bank Name.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="row_survey_leadId" class="form-label">Branch Name<span>*</span></label>
+                                            <input type="text" class="form-control  input_field" name="branch_name" id=""  required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Branch Name.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="row_survey_leadId" class="form-label">Branch Email<span>*</span></label>
+                                            <input type="text" class="form-control  input_field" name="branch_email" id=""  required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Branch Email.
+                                            </div>
+                                        </div>
+                                    </div>    
+
+                                </fieldset>
+
+                                <br>
+
+                                <fieldset>
+                                    <legend>Borrower details<span class="text-danger">*</span></legend>
+                             
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="borrowerName" class="form-label">Borrower Name<span>*</span></label>
+                                            <input type="text" class="form-control  input_field" name="borrower_name" id="borrowerName"  required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Borrower Name.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="propertyAddress" class="form-label">Property Address<span>*</span></label>
+                                            <textarea rows="3" type="text" class="form-control  input_field" name="property_address" id="propertyAddress"  required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid Property Address.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                        
+                        </form>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>                
+
+        <!-- ====================================================== -->
+
+        <% if(messages.error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Something went wrong !</h4>
+                <hr>
+                <p class="mb-0"><%= messages.error %></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>            
+        <% } %>   
+
+        <% if(messages.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Success !</h4>
+                <hr>
+                <p class="mb-0"><%= messages.success %></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>            
+        <% } %>  
+
+
+        <div class="mainCard_container">
+            <% leads.forEach(function(lead) { %>
+                <div class="card surveyCard">
+                    <div class="card-body">
+                        <h3><%= lead.bank_name %></h3>
+                        <p class="branch_name"><span>Branch :</span> <%= lead.branch_name %></p>
+                        <p class="id_text">Id -<span class="lead_id"><%= lead.lead_id %></span></p>
+                        <!-- <br> -->
+                    </div>
+                        
+                    <!-- ========= -->
+                    <div class="accordion" id="accordionPanelsStayOpenExample">                    
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo-<%= lead.lead_id %>" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                Borrower Details
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo-<%= lead.lead_id %>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                <!-- borrower_name: 'borrower name new',
+                                    last_name: 'last name',
+                                    mobile_number: '9111910849',
+                                    contact_type: 'Contact type 2',
+                                    remarks: 'borrower remarks', -->
+                                <% borrowers.forEach(function(borrower) { %>  
+                                    <div class="borrower_det">
+                                      <h2><i class="fas fa-user-tag"></i><%= borrower.borrower_name %> <%= borrower.last_name %></h2>
+                                      <a href="" class="mobile_no"><i class="fas fa-phone-alt"></i><%= borrower.mobile_number %></a>
+                                      <h3><i class="fas fa-address-card"></i><%= borrower.contact_type %></h3>
+                                      <p><i class="fas fa-user-edit"></i><%= borrower.remarks %></p>
+                                    </div>
+                                <% }) %>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree-<%= lead.lead_id %>" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                    Editor Details
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree-<%= lead.lead_id %>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                                <div class="accordion-body">
+                                        <!-- user_id: 8,
+                                        emp_id: 87676,
+                                        username: 'raj@123',
+                                        first_name: 'Raj',
+                                        last_name: 'Kushwaha',
+                                        father_name: 'raj father name',
+                                        DOB: 2018-01-31T18:30:00.000Z,
+                                        address_HN: 'jhanshi , raksha',
+                                        address_street: 'station road',
+                                        address_city: 'jhansi',
+                                        email: 'raj@gmail.com',
+                                        password: '$2b$10$J0PzUZoJfRY7vg9G3W7ome3IZw0dEBto5sf6bF5JKZBpyLFpDxlzm',
+                                        contact_1: '0987654321',
+                                        contact_2: '1234567890',
+                                        image: 'guest_male.jpg',
+                                        ref_1: 'ref1',
+                                        ref_2: 'ref2',
+                                        ref_3: 'ref3',
+                                        ref_1_detail: 'ref1 details',
+                                        ref_2_detail: 'ref 2 details',
+                                        ref_3_detail: 'ref3 detaikls',
+                                        bank_name: 'bank of india',
+                                        bank_account: '9875423456',
+                                        ID_number: '6756',
+                                        ID_type: 'report editor',
+                                        userType: 'Report Editor',
+                                        status: 'Active', -->
+                                    <% editors.forEach(function(editor) { %>  
+                                        <div class="borrower_det">
+                                            <h2><i class="fas fa-user-tag"></i><%= editor.first_name %> <%= editor.last_name %></h2>
+                                            <div class="contact_row"><a href="" class="mobile_no"><i class="fas fa-phone-alt"></i><%= editor.contact_1 %></a><span>|</span><a href="" class="mobile_no"><%= editor.contact_2 %></a></div>
+                                            <h3><i class="fas fa-address-card"></i><%= editor.bank_name %></h3>
+                                            <p><i class="fas fa-user-edit"></i><%= editor.userType %></p>
+                                        </div>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ========= -->
+                    
+                    <div class="card-body pt-3">
+                        
+                        <h6>Work Type<span><%= lead.work_type %></span></h6>
+                        <h6>Date<span><%= lead.date %></span></h6>
+                        <h6>Due Date<span><%= lead.due_date %></span></h6>
+                        <h6>Status<span><%= lead.status %></span></h6>  
+                        <% if(lead.lead_address != " " || lead.lead_address != null) { %>
+                        <a href="<%= lead.lead_addressLink  %>" target="_blank" class="address"><i class="fas fa-map-marked-alt"></i><%= lead.lead_address %></a>
+                        <% } %> 
+
+                        <div class="contact_links">
+                            <div class="action_link">
+                               <a href=""><i class="fas fa-phone-alt"></i></a>
+                               <span>Call Customer</span>
+                            </div>
+                            <div class="action_link">
+                               <a href="<%= lead.lead_addressLink  %>" target="_blank"><i class="fas fa-directions"></i></a>
+                               <span>Route Map</span>
+                            </div>
+                            <div class="action_link">
+                               <a href=""><i class="fas fa-user-tie"></i></a>
+                               <span>Call Office</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uploadDoc_row">
+                        <button data-bs-toggle="modal" data-bs-target="#showDocumentsModal" class="btn btn-sm btn-primary actionModal">Documents</button>
+                        <!-- <button class="btn btn-sm btn-warning">Upload1</button> -->
+                        <button data-bs-toggle="modal" data-bs-target="#showSurveyModal" class="btn btn-sm btn-warning actionModal">Fill Survey</button>
+                    </div>
+                </div>
+            <% }) %>     
+        </div>    
+    </main>
+    
+</div>      
+
+<script>
+    $(document).ready(function(){
+        $("#myLeads").addClass('active');
+        $("#documentForm").hide();
+        $("#submitDoc_btn").hide();
+    })
+
+    var createDateValue = document.getElementById('createDate')
+    let todayDate = new Date();
+    //console.log(todayDate);
+     //var dd = todayDate.getDate();
+     var dd = String(todayDate.getDate()).padStart(2, '0')
+     //console.log(" dd :-"+dd)
+     // ==========================
+
+     //var mm = todayDate.getMonth() + 1;
+     var mm = String(todayDate.getMonth() + 1).padStart(2, '0')
+     //console.log("mm :-"+ mm)
+     var yyyy = todayDate.getFullYear();
+     //console.log("yyyy :-"+yyyy)
+     //var currentDate = `${dd}/${mm}/${yyyy}`
+     //var datePattern = dd + '/' + mm + '/' + yyyy;
+     var datePattern = yyyy + '-' + mm + '-' + dd
+     //console.log("datePattern :-"+datePattern)
+
+    
+     createDateValue.value = datePattern;
+
+    $("#uploadMoreDocBtn").click(function(){
+        //alert("working")        
+        $("#allDocumentsFieldshet").hide();
+        $("#documentForm").show();
+        $("#submitDoc_btn").show();
+    })
+
+    $('.surveyCard').on('click','.actionModal',function(){
+        $("#allDocumentsFieldshet").show();
+        $("#documentForm").hide();
+        var cur_row = $(this).closest('.card');
+        //console.log(cur_row)
+        //var status = cur_row.find('.status').text();
+        // console.log(status)
+        //var rows_st = $("#row_status").val()
+        //console.log(rows_st)
+
+        var leadId = cur_row.find('.lead_id').text();
+        console.log(leadId)
+        $('#row_leadId').val(leadId)
+        $('#row_survey_leadId').val(leadId)
+        //console.log()
+
+        var leadIdText = document.getElementById('doc_leadId');
+        var surveyIdText = document.getElementById('survey_leadId');
+        leadIdText.innerHTML = "Lead Id - <b>"+leadId+"</b>";
+        surveyIdText.innerHTML = "Lead Id - <b>"+leadId+"</b>";
+
+        
+
+        // =========user_id===========
+        /*var userId = cur_row.find('.user_ids').text();
+        // console.log(userId)
+        $('#row_userId').val(userId)*/
+
+        // =======order_status=========
+        /*var orderStatus = cur_row.find('.order_status').text();
+        // console.log("orderStatus:-"+orderStatus)
+
+        $('#row_status').val(orderStatus)
+        if(orderStatus == "delivered" || orderStatus =="cancel_order" ){
+           $('#row_status').prop('disabled', true)
+        }else{
+            $('#row_status').prop('disabled', false) 
+        }*/
+
+        //===============getDocuments================
+        var uploadDocMsg = document.getElementById('uploadDoc_Msg');
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/getDocumentsById/"+leadId,'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            uploadDocMsg.innerHTML = '';
+            //$('#uploadDocumentBody').innerHTML = '';
+            var documentBodyCard = document.getElementById('uploadDocumentBody');
+            documentBodyCard.innerText = '';
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                console.log(resp)    
+                if(resp.status == 'error'){
+                    uploadDocMsg.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                        </div>
+                    `)
+                }
+                if(resp.status == 'warning'){
+                    uploadDocMsg.innerHTML = (`
+                    <div class='alert alert-warning alert-dismissible fade show w-50 mx-auto' role='alert'>
+                        <h4 class='alert-heading'>Server Response !</h4>
+                        <hr>
+                        <p class='mb-0'>`+resp.message+`</p>
+                    </div>
+                    `) 
+                }
+                if(resp.status == 'success'){
+                    console.log(resp.documents)
+
+                    /*
+                        create_date: "2022-01-14T16:08:56.000Z"
+                        doc_id: 1
+                        document_name: "leadId-3_2022-01-14_iim_jammu_banner.png"
+                        document_type: "Registory"
+                        lead_id: 3
+                        remarks: "remarks here"
+                        uploaded_by: ""
+                    */
+
+                    var documentData = '';   
+                    $.each(resp.documents, function(key, value){
+                        console.log(key +':'+ value.document_name)
+                        var extensn = value.document_name.split('.').pop();
+                        console.log("extensn :-"+extensn);
+                        documentData += '<div class="card documentsCard">';
+                            documentData += '<div class="card-body">';
+                                if(extensn == 'png' || extensn == 'jpeg' || extensn == 'jpg' || extensn == 'svg'){
+                                    documentData += '<img src="/uploadLeadDocuments/'+value.document_name+'">';
+                                }
+                                if(extensn == 'PDF'){
+                                    //documentData += '<i class="far fa-file-pdf"></i>';
+                                    documentData += '<img class="docs_img" src="/images/pdf.png"/>';
+                                }
+                                if(extensn == 'docx'){ //<i class="far fa-file-word"></i>
+                                    documentData += '<img class="docs_img" src="/images/ms_word.png"/>';
+                                }
+                                if(extensn == 'xlsx'){ //<i class="far fa-file-excel"></i>
+                                    documentData += '<img class="docs_img" src="/images/xlsx.png"/>';
+                                }
+                            documentData += '</div>';   
+                            documentData += '<div class="card-footer">'; 
+                                documentData += '<a download href="/uploadLeadDocuments/'+value.document_name+'">'+value.document_name+'</a>';
+                                documentData += '<h5><span>Doc Type</span>'+value.document_type+'</h5>';
+                                documentData += '<p>'+value.remarks+'</p>' 
+                                documentData += '<h6><span>Create Date</span>'+value.create_date+'</h6>';  
+                            documentData += '</div>';   
+                        documentData += '</div>';   
+                    });
+                    $('#uploadDocumentBody').append(documentData); 
+                    /*var clientsData = '';
+                    $.each(resp.clients, function(key, value){
+                       //clientsData += '<label for="clientId'+key+'">' ;
+                       clientsData += '<tr>';
+                       clientsData += '<td><div><input type="radio" name="clientIds" onchange="clientId('+this.client_id+')" value="'+value.client_id+'" id="clientId'+key+'"></div></td>';    
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.borrower_name+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.last_name+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.mobile_number+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.contact_type+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.remarks+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.create_by+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.create_date+'</div></label></td>'; 
+                       clientsData += '</tr>';
+                       //clientsData += '</label>';
+                    });    
+                    $("#clientBody").append(clientsData);*/
+                    
+
+                }        
+            } catch (e){
+                console.error("could not parse Json...")
+                alert(e)
+            }
+        }
+    
+
+    })
+</script>        

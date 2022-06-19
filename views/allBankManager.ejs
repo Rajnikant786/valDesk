@@ -1,0 +1,205 @@
+<input type="checkbox" name="" id="sideMenu_Toggle">
+
+<!-- ===================side menu============= -->
+<%- include('common/sideMenu'); -%>
+
+<!-- ===================main content============= -->
+<div class="main_content">
+
+    <%- include('common/header'); -%>
+
+    <main>
+        <div class="page_header">
+            <div>
+                <h1><%= title %></h1><br/>
+                <!-- <small>Welcome ayt store. check reporting and review insights</small> -->
+            </div>
+        </div>
+
+        <hr class="line">
+
+           
+    
+        <div class="tableList_module"><!--addUserAdmin-->
+            <h2>Branch Manager<small><a href="/addBranchManager">Add  admin only <span><i class="fas fa-long-arrow-alt-right"></i></span></a></small></h2>
+            <div class="All_table_responsive">
+
+                <% if(messages.error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Something went wrong !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.error %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                <% } %>   
+
+                <% if(messages.success) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Success !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.success %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                <% } %>  
+
+                <table width="100%" id="mydatatable" class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Status</th>                                
+                                <th>Manager Id</th>
+                                <th>Bank Code</th>
+                                <th>Branch Name</th>
+                                <th>Manager Name</th>
+                                <th>D.O.B</th>
+                                <th>Gender</th>
+                                <th>Manager Scale</th>
+                                <th>Manager Designation</th>
+                                <th>Manager Official Number</th>
+                                <th>Manager Personal Number</th>
+                                <th>Manager Bank Email</th>
+                                <th>Manager Personal Email</th>
+                                <th>Address</th>
+                                <th>Remarks</th>
+                                <th>Create By</th>
+                                <th>Create Date</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% managers.forEach(function(branchManager) { %>
+                            <tr>
+                                <td>
+                                    <div class="action_td">
+                                    <!-- <a href="editProduct/<%= branchManager.manager_id %>"><i class="fas fa-edit"></i></a> -->
+                                    <a href="deleteBranchManagerById/<%= branchManager.manager_id %>"><i class="fas fa-trash-alt text-danger"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.status %>
+                                    </div>
+                                </td>
+                                <!--<td>
+                                    <form action="/ayt/orderStatus" method="POST">
+                                        <div class="listSelect">
+                                            <input type="hidden" name="order_id" value="<%= branchManager.order_id %>">
+                                            <select name="status" value="<%= branchManager.status %>" onchange="this.form.submit()" >
+                                                <option value="" >choose...</option>
+                                                <option value="confirmed" <% if(branchManager.status == "confirmed") { %> selected <% } %>  >
+                                                    Confirmed</option>
+                                                <option value="cancel_order" <% if(branchManager.status == "cancel_order") { %> selected <% } %>  >
+                                                        Cancel Order</option>    
+                                                <option value="prepared" <% if(branchManager.status == "prepared") { %> selected <% }  %> >
+                                                    Prepared</option>
+                                                <option value="delivered" <% if(branchManager.status == "delivered") { %> selected <% }  %> >
+                                                    Delivered
+                                                </option>
+                                                <option value="order_placed" <% if(branchManager.status == "order_placed") { %> selected <% }  %> >
+                                                    Placed
+                                                </option>
+                                            </select>
+                                        </div>    
+                                    </form>
+
+                                </td>-->
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_id %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.bank_code %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.branch_name %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_name %> <%= branchManager.manager_last_name %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_dob %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.gender %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_scale %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_designation %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_official_number %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_personal_number %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_bank_email %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_personal_email %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.manager_address %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.remarks %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.create_by %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= branchManager.create_date %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %> 
+                        </tbody>
+                </table>
+            </div>  
+        </div>
+    </main> 
+
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+            //alert("working...") ;
+            // $(this).fadeOut();
+            $("#allBranchManager").addClass('active');
+    })
+</script>

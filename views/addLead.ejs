@@ -1,0 +1,1352 @@
+<input type="checkbox" name="" id="sideMenu_Toggle">
+
+<%- include('common/sideMenu'); -%>
+
+<!-- ===================main content============= -->
+<div class="main_content">
+ 
+  
+  <%- include('common/header'); -%>
+
+    <main>
+
+        <div class="page_header">
+            <div>
+                <h1><%= title %></h1><br/>
+                <!-- <small>Welcome ayt store. check reporting and review insights</small> -->
+            </div>
+        </div>     
+        
+        <hr class="line">
+
+        <!-- =================== client_master ======================= -->
+        <div class="modal fade" id="clientModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalToggleLabel">Client</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="tableList_module"><!--addUserAdmin-->
+                        <h2>Client<small><a href="" data-bs-target="#clientModalToggle2" data-bs-toggle="modal">Add  admin only <span><i class="fas fa-long-arrow-alt-right"></i></span></a></small></h2>
+                        <div class="All_table_responsive">
+            
+                            <div id="serverRespBox">
+
+                            </div> 
+            
+                            <table width="100%" id="mydatatable" class="table table-sm table-bordered clientTable">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th>Action</th> -->
+                                            <!-- <th>Status</th> -->
+                                            <th>Select Borrower</th>
+                                            <th>Borrower Name</th>
+                                            <th>Last Name</th>
+                                            <th>Mobile Number</th>
+                                            <th>Contact Type</th>
+                                            <th>Remarks</th>
+                                            <th>Create By</th>
+                                            <th>Create Date</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody id="clientBody">
+
+                                    </tbody>
+                            </table>
+                        </div>  
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                  <button class="btn btn-primary" data-bs-target="#clientModalToggle2" data-bs-toggle="modal">Open second modal</button>
+                </div> -->
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="clientModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form_section">
+                        <form id="clientForm">
+
+                            <div id="serverRespBox">
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="clientValidation1" class="form-label">Borrower Name<span>*</span></label>
+                                    <input type="text" class="form-control  input_field" name="borrower_name" id="clientValidation1"  required >
+                                    <div class="invalid-feedback">
+                                        Please provide a valid borrower name.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="clientValidation2" class="form-label">Last Name<span>*</span></label>
+                                    <input type="text" class="form-control  input_field" name="last_name" id="clientValidation2"  required >
+                                    <div class="invalid-feedback">
+                                        Please provide a borrower last name.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="clientValidation3" class="form-label">Mobile Number<span>*</span></label>
+                                    <input type="text" pattern="[6-9]{1}[0-9]{9}" maxlength="10" class="form-control  input_field" name="mobile_number" id="clientValidation3"  required >
+                                    <div class="invalid-feedback">
+                                        Please provide a 10 digit mobile number.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="clientValidation4" class="form-label">Contact Type <span>*</span></label>
+                                    <select class="form-select input_field" id="clientValidation4" name="contact_type"  required>
+                                        <option value="">Choose...</option>
+                                        <option value="contact type 1">Contact type 1</option>
+                                        <option value="Contact type 2">Contact type 2</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a Contact Type.
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label for="clientValidation5" class="form-label"> Remarks</label>
+                                    <input type="text" class="form-control input_field" name="borrower_remarks" id="clientValidation5"  >
+                                    <div class="invalid-feedback">
+                                        Please provide a remarks.
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-4">
+                                    <label for="validationCustom14" class="form-label">Status <span>*</span></label>
+                                    <select class="form-select input_field" id="validationCustom14" name="status"  required>
+                                        <option value="">Choose...</option>
+                                        <option value="Active" selected>Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a status.
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-4">
+                                    <label for="clientValidation3" class="form-label">Create By<span>*</span></label>
+                                    <input type="text" class="form-control input_field" name="create_by" value="<%= userName %> - <%= userType %>" id="clientValidation3"  required readonly>
+                                    <div class="invalid-feedback">
+                                        Please provide a create By.
+                                    </div>
+                                </div>
+                                
+                            
+
+                                <div class="col-12 text-center mt-4 form_btn">
+                                    <button class="btn btn-sm btn-primary submit_btn" type="submit">Submit form</button> &nbsp;
+                                    <a href="javascript:void(0)" onclick="loadClientList()" class="btn btn-sm btn-dark submit_btn">Back</a>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>    
+                </div>
+                <!-- <div class="modal-footer">
+                  <button class="btn btn-primary" data-bs-target="#clientModalToggle" data-bs-toggle="modal">Back to first</button>
+                </div> -->
+              </div>
+            </div>
+        </div>
+        <!-- <a class="btn btn-primary" data-bs-toggle="modal" href="#clientModalToggle" role="button">Open first modal</a> -->
+        <!-- ========================================================= -->
+
+        <!-- ========================== surveyor modal ==================== -->
+        <div class="modal fade" id="surveyModalToggle" aria-hidden="true" aria-labelledby="surveyModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="surveyModalToggleLabel">Surveyor List</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tableList_module"><!--addUserAdmin-->
+                            <!-- <h2>Client<small><a href="" data-bs-target="#clientModalToggle2" data-bs-toggle="modal">Add  admin only <span><i class="fas fa-long-arrow-alt-right"></i></span></a></small></h2> -->
+                            <div class="All_table_responsive">
+                
+                                <div id="serverRespBox">
+    
+                                </div> 
+                
+                                <table width="100%" id="mydatatable_modal" class="table table-sm table-bordered clientTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Select Surveyor</th>
+                                                <th>Image</th>
+                                                <th>Employee Id</th>
+                                                <th>User Type</th>
+                                                <th>Username</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Father Name</th>
+                                                <th>D.O.B</th>
+                                                <th>Email</th>
+                                                <th>Contact 1</th>
+                                                <th>Contact 2</th>
+                                                <th>Bank Name</th>
+                                                <th>Bank Account</th>
+                                                <th>Id Number</th>
+                                                <th>Id Type</th>
+                                                <th>Address HN</th>
+                                                <th>Address Street</th>
+                                                <th>Address City</th>
+                                                <th>Ref 1</th>
+                                                <th>Ref 2</th>
+                                                <th>Ref 3</th>
+                                                <th>Ref 1 Details</th>
+                                                <th>Ref 2 Details</th>
+                                                <th>Ref 3 Details</th>                                
+                                                <th>Create By</th>                                           
+                                            </tr>
+                                        </thead>
+                                        <tbody id="surveyBody">
+    
+                                        </tbody>
+                                </table>
+                            </div>  
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                      <button class="btn btn-primary" data-bs-target="#clientModalToggle2" data-bs-toggle="modal">Open second modal</button>
+                    </div> -->
+                  </div>
+                </div>
+        </div>
+
+        <!-- ========================= editorModalToggle ================== -->
+        <div class="modal fade" id="editorModalToggle" aria-hidden="true" aria-labelledby="editorModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editorModalToggleLabel">Editor List</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="tableList_module"><!--addUserAdmin-->
+                        <!-- <h2>Client<small><a href="" data-bs-target="#clientModalToggle2" data-bs-toggle="modal">Add  admin only <span><i class="fas fa-long-arrow-alt-right"></i></span></a></small></h2> -->
+                        <div class="All_table_responsive">
+            
+                            <div id="serverRespBox">
+
+                            </div> 
+            
+                            <table width="100%" id="mydatatable_modal_editor" class="table table-sm table-bordered clientTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Select Editor</th>
+                                            <th>Image</th>
+                                            <th>Employee Id</th>
+                                            <th>User Type</th>
+                                            <th>Username</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Father Name</th>
+                                            <th>D.O.B</th>
+                                            <th>Email</th>
+                                            <th>Contact 1</th>
+                                            <th>Contact 2</th>
+                                            <th>Bank Name</th>
+                                            <th>Bank Account</th>
+                                            <th>Id Number</th>
+                                            <th>Id Type</th>
+                                            <th>Address HN</th>
+                                            <th>Address Street</th>
+                                            <th>Address City</th>
+                                            <th>Ref 1</th>
+                                            <th>Ref 2</th>
+                                            <th>Ref 3</th>
+                                            <th>Ref 1 Details</th>
+                                            <th>Ref 2 Details</th>
+                                            <th>Ref 3 Details</th>                                
+                                            <th>Create By</th>                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody id="editorBody">
+
+                                    </tbody>
+                            </table>
+                        </div>  
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                  <button class="btn btn-primary" data-bs-target="#clientModalToggle2" data-bs-toggle="modal">Open second modal</button>
+                </div> -->
+              </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+
+        <div class="form_section">
+            <form class=" needs-validation" action="/addLead" method="POST"  novalidate> <!--enctype="multipart/form-data"-->
+
+                <% if(messages.error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Something went wrong !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.error %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>   
+
+                <% if(messages.success) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Success !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.success %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %> 
+
+                <div class="row"> <!--row g-3-->
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="card fieldshet_container form_fieldshet">
+                            <fieldset>
+                                <legend>General Details:</legend>
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label for="createDate" class="form-label">Date<span>*</span></label>
+                                        <input type="date" class="form-control  input_field" name="date"  id="createDate">
+                                        <div class="invalid-feedback">
+                                            Please provide a date.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="dueDate" class="form-label">Due Date<span>*</span></label>
+                                        <input type="date" class="form-control  input_field" name="due_date"  id="dueDate">
+                                        <div class="invalid-feedback">
+                                            Please provide a due date.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="worlType" class="form-label">Work<span>*</span></label>
+                                        <select class="form-select input_field" id="worlType" name="work_type" required> 
+                                            <option value="">Select Work Type</option>
+                                            <option value="Val">Val</option>
+                                            <option value="ValEst">ValEst</option>
+                                            <option value="Est">Est</option>
+                                            <option value="WT Val">WT Val</option>
+                                            <option value="Other">Other</option>
+                                            <option value="Re-val">Re-val</option>
+                                            <option value="NPA">NPA</option>
+                                            <option value="Progress-report">Progress-report</option>
+                                            <option value="Certificate">Certificate</option>
+                                            <option value="comp">comp</option>
+                                            <option value="ValComp">ValComp</option>
+                                            <option value="Re-Print">Re-Print</option>
+                                            <option value="CompEst">CompEst</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a Work Type.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="bankCode" class="form-label">Bank Code<span>*</span></label>
+                                        <select class="form-select input_field" id="bankCode" name="bank_code" onchange="setInputAttributeOrGetBankDetails(this.value)" required> <!--onchange="getBankCode(this.value)"-->
+                                            <option value="">Select Bank Code</option>
+                                            <% bank_codes.forEach(function(bank) { %>
+                                                <option value="<%= bank.bank_code %>"> <%= bank.bank_code %> </option>
+                                            <% }) %>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a bank code.
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-4"> -->
+                                        <!-- <label for="bankId" class="form-label">Bank Id<span>*</span></label> -->
+                                        <input type="hidden" class="form-control  input_field" name="bank_id" id="bankId"  readonly>
+                                        <!-- <div class="invalid-feedback">
+                                            Please select a bank Id.
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-4">
+                                        <label for="bankName" class="form-label">Bank Name</label>
+                                        <input type="text" class="form-control  input_field" name="bank_name" id="bankName"  readonly>
+                                        <div class="invalid-feedback">
+                                            Please provide a bank name.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="cityCode" class="form-label">City Code / Section<span>*</span></label>
+                                        <!-- <input type="number" class="form-control input_field" name="city_code" id="validationCustom03"  required> -->
+                                        <select class="form-select input_field" id="cityCode" name="city_code"  onchange="getBranchName(this.value)"  required>
+                                            <option value="">Select City Code</option>
+                                            <% cities.forEach(function(city) { %>
+                                                <option value="<%= city.city_code %>"> <%= city.city_code %> </option>
+                                            <% }) %> 
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please provide a City Code.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="branchName" class="form-label">Branch Name<span>*</span></label>
+                                        <select class="form-select input_field" id="branchName" name="branch_name" onchange="getBrancDetails(this.value)" required>
+                                            <option value="">Select Branch Name</option>
+
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a bank code.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4"> <!--onchange="getClientDetails()"-->
+                                        <label for="borrowerDetails" class="form-label">Borrower Name / Client<span>*</span></label>
+                                        <!-- <input type="text" class="form-control input_field" name="borrower_name" id="borrowerName" required>
+                                        <div class="invalid-feedback">
+                                            Please select valid Client 
+                                        </div> -->
+                                        <select class="form-select input_field" id="borrowerDetails" name="borrower_id" required >
+                                            <option value="">Select Borrower</option>
+
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a Borrower.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="validationCustom03" class="form-label"> Remarks</label>
+                                        <input type="text" class="form-control input_field" name="lead_remarks" id="validationCustom03"  required>
+                                        <div class="invalid-feedback">
+                                            Please provide a remarks.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="validationCustom14" class="form-label">Status <span>*</span></label>
+                                        <select class="form-select input_field" id="validationCustom14" name="status"  required>
+                                            <option value="">Choose...</option>
+                                            <option value="visit/visited" selected>visit/visited</option>
+                                            <option value="to Act">to Act</option>
+                                            <option value="signed">signed</option>
+                                            <option value="correction">correction</option>
+                                            <option value="cancelled">cancelled</option>
+                                            <option value="hold bank">hold bank</option>
+                                            <option value="hold on us">hold on us</option>
+                                            <option value="Delivered">Delivered</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a status.
+                                        </div>
+                                    </div>
+
+                                </div>                                
+                            </fieldset> 
+                        </div>    
+
+                        <br>
+
+                        <div class="card fieldshet_container form_fieldshet">
+                            <fieldset>
+                                <legend>Location <span class="text-danger">*</span></legend>
+
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label for="">Full Address<span>*</span></label>
+                                        <textarea type="text" rows="4" class="form-control form-control-sm input_field" name="lead_address" required ></textarea>
+                                        <div class="invalid-feedback">
+                                            Please provide a full address.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="">Full Address Link<span>*</span></label>
+                                        <textarea type="text" rows="4" class="form-control form-control-sm input_field" name="lead_addressLink" required></textarea>
+                                        <div class="invalid-feedback">
+                                            Please provide a full address link.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <!-- <p>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115293.28373109757!2d78.49224779496136!3d25.44110124288665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397776d458ba7703%3A0x96e9cda55c3481ca!2sJhansi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1641818090068!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </p> -->
+                                    <div class="col-md-6">
+                                        <textarea type="text" rows="11" class="form-control input_field" name="location" id="prop_location" required></textarea>
+                                        <a class="text-danger mb-0 text-sm" href="https://www.google.com/maps" target="_blank">https://www.google.com/maps</a>
+                                        <div class="saveLocationBtn mt-2">
+                                            <button type="button" class="btn btn-sm btn-warning" onclick = "getLocationValue()">Submit Location</button>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please provide a location .
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="locationDiv">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>        
+
+
+                        <br>
+
+                        <div class="card fieldshet_container form_fieldshet">
+                            <fieldset>
+                                <legend>Assigned <span class="text-danger">*</span></legend>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="openSurveyModal" class="form-label">Surveyor<span>*</span></label>
+                                        <select class="form-select input_field" id="openSurveyModal" name="surveyor_id" required>
+                                            <option value="">Select Surveyor</option>
+
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a valid surveyor.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="surveyDate" class="form-label">Survey Date<span>*</span></label>
+                                        <input type="date" class="form-control  input_field" name="survey_date"  id="surveyDate" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a survey date.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="editor" class="form-label">Editor <span>*</span></label>
+                                        <!-- <input type="text" class="form-control  input_field" name="editor"  id="editor"> -->
+                                        <select class="form-select input_field" id="editor" name="editor_id" required>
+                                            <option value="">Select Editor</option>
+
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please provide a editor.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="submitDate" class="form-label">Submit Date <span>*</span></label>
+                                        <input type="date" class="form-control  input_field" name="submit_date"  id="submitDate" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a submit date.
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-6">
+                                        <label for="consultantField" class="form-label">Consultant<span>*</span></label>
+                                        <select class="form-select input_field" id="consultantField" name="consultant"  required>
+                                            <option value="">Select Consultant</option>
+                                            <option value="Consultant - 1">Consultant - 1</option>
+                                            <option value="Consultant - 2">Consultant - 2</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a valid consultant.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="sybmitTo" class="form-label">Submit To<span>*</span></label>
+                                        <select class="form-select input_field" id="sybmitTo" name="submit_to"  required>
+                                            <option value="">Choose...</option>
+                                            <option value="submit To - 1">Submit To - 1</option>
+                                            <option value="submit To - 2">Submit To - 2</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a valid Value.
+                                        </div>
+                                    </div> -->
+
+                                </div>    
+                            </fieldset>
+                        </div>
+
+                            <!-- ========== -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="validationCustom09" class="form-label">Create By<span>*</span></label>
+                                <input type="text" class="form-control input_field" name="create_by" value="<%= userName %> - <%= userType %>" id="validationCustom09"  required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a create By.
+                                </div>
+                            </div>
+                            
+                        
+
+                            <div class="col-12 text-center mt-4 form_btn">
+                                <button class="btn btn-sm btn-primary submit_btn" type="submit">Submit form</button> &nbsp;
+                                <a href="/allLeads" class="btn btn-sm btn-dark submit_btn">Back</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-4 col-sm-12 right_side_form">
+                        <div class="card fieldshet_container">
+                            <fieldset>
+                                <legend>Bank Details:</legend>
+
+                                <div class="bank_container form_answer">
+                                    <h6 class="bankCode"></h6>
+                                    <span class="bankName"></span>
+                                    <p class="details_header">Bank R.O Address :-</p>
+                                    <p class="bankAddress"></p>
+                                    <p class="details_header">Branch Details :-</p>
+                                    <span class="branchName"></span>
+                                    <p class="branchContact"></p>
+                                    <p class="branchEmail"></p>
+                                    <p class="details_header">Manager Details :-</p>
+                                    <p class="managerName text-light"></p>
+                                </div>
+                            </fieldset>                            
+                        </div>
+                        <!-- <br> -->
+                        <div class="card fieldshet_container">
+                            <fieldset>
+                                <legend>Client Details:</legend>
+                                <div class="client_container form_answer">
+                                    <span class="clientName"></span>
+                                    <p class="clientContact"></p>
+                                    <p class="clientType"></p>
+                                    <p class="details_header">Remarks :-</p>
+                                    <p class="remarksText"></p>
+                                </div>                               
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+             </form>    
+        </div>
+
+    </main>
+    
+</div>
+
+
+<!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js"></script> -->
+
+<!-- ============== client function ==================== -->
+<script>
+    /*function getClientDetails(){
+        alert("working")
+    }*/
+
+    $("#borrowerDetails").click( () =>{
+        //alert("working")
+        $("#clientModalToggle").modal('show')
+    })
+
+
+
+    const messageBoxId = document.getElementById('serverRespBox');
+
+    $("#clientForm").on('submit', (e) => {
+        //console.log(e);
+        e.preventDefault();
+        //console.log($('#clientForm').serialize())
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('POST',"<%= serverUrl %>/addClient",'TRUE'); // open request
+        ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send($('#clientForm').serialize());
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response);
+                console.log(resp);
+                if(resp.status == 'success'){
+                    
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-success alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Success !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                    subForm = document.querySelector("#clientForm")
+                    subForm.reset();
+                }
+                if(resp.status == 'warning'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-warning alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Warning !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }
+            } catch (e){
+                console.error("could not parse Json...")
+            }
+        }
+        
+    });
+
+
+    function getAllClients(){
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/allClients",'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                //console.log(resp)    
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }
+                if(resp.status == 'success'){
+                    //console.log(resp.clients)
+                    var clientsData = '';
+                    $.each(resp.clients, function(key, value){
+                       //clientsData += '<label for="clientId'+key+'">' ;
+                       clientsData += '<tr>';
+                       clientsData += '<td><div><input type="radio" name="clientIds" onchange="clientId('+this.client_id+')" value="'+value.client_id+'" id="clientId'+key+'"></div></td>';    
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.borrower_name+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.last_name+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.mobile_number+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.contact_type+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.remarks+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.create_by+'</div></label></td>'; 
+                       clientsData += '<td><label for="clientId'+key+'"><div>'+value.create_date+'</div></label></td>'; 
+                       clientsData += '</tr>';
+                       //clientsData += '</label>';
+                    });    
+                    $("#clientBody").append(clientsData);
+                    
+
+                }        
+            } catch (e){
+                console.error("could not parse Json...")
+                alert(e)
+            }
+        }
+    };
+
+    getAllClients();
+
+    var getBorrowerId = document.getElementById('borrowerDetails');
+    getBorrowerId.innerHTML = '<option value="">Select Borrower ...</option>';
+
+    function clientId(clientId){
+        //console.log(clientId)
+
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/getClientDetailById/"+clientId,'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                //console.log(resp)  
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }else{
+                    //console.log(resp.clientDetail)
+                    /*borrower_name: "BOROWER NAME 3"
+                    client_id: 3
+                    contact_type: "contact type 1"
+                    create_by: "sri@123 - Admin"
+                    create_date: "2022-01-07T11:58:05.000Z"
+                    last_name: "LAST NAME 3"
+                    mobile_number: "9876543221"
+                    remarks: "BORROWER REMARKS"*/
+
+                    var newOption = document.createElement("option");
+                    newOption.value = resp.clientDetail.client_id
+                    newOption.setAttribute('selected',true)
+                    newOption.innerHTML = resp.clientDetail.borrower_name +' '+ resp.clientDetail.last_name;
+                    getBorrowerId.options.add(newOption);
+
+                    const clientNameSelectQuery = document.querySelector('.clientName')
+                    clientNameSelectQuery.innerHTML = resp.clientDetail.borrower_name +' '+ resp.clientDetail.last_name;
+
+                    const clientMobileSelectQuery = document.querySelector('.clientContact');
+                    clientMobileSelectQuery.innerHTML = resp.clientDetail.mobile_number
+
+                    const clientTypleSelectQuery = document.querySelector('.clientType')
+                    clientTypleSelectQuery.innerHTML = resp.clientDetail.contact_type
+
+                    
+                    const remarkSelectQuery = document.querySelector('.remarksText')
+                    remarkSelectQuery.innerHTML = resp.clientDetail.remarks
+
+                    $("#clientModalToggle").modal('hide');
+
+                }
+            }catch (e){
+                console.error("could not parse Json...")
+                alert(e);
+            }
+        }
+        
+    }
+
+   
+    
+    /*setInterval( () =>{
+       console.log("time interval working")
+    },3000)*/
+    
+    function loadClientList(){
+        //alert("working ....");
+        //console.log("working")
+        subForm = document.querySelector("#clientForm")
+        subForm.reset();
+        $("#clientModalToggle2").modal('hide')
+        getAllClients()
+    }
+
+
+    //$('#createDate').datepicker();
+
+    var createDateValue = document.getElementById('createDate')
+    var dueDateValue = document.getElementById('dueDate')
+    let todayDate = new Date();
+    //console.log(todayDate);
+     //var dd = todayDate.getDate();
+     var dd = String(todayDate.getDate()).padStart(2, '0')
+     //console.log(" dd :-"+dd)
+
+     // ======= next 2 date =======
+     var due_dd = String(todayDate.getDate() + 2).padStart(2, '0') 
+     //console.log("due_dd :-"+due_dd)
+     // ==========================
+
+     //var mm = todayDate.getMonth() + 1;
+     var mm = String(todayDate.getMonth() + 1).padStart(2, '0')
+     //console.log("mm :-"+ mm)
+     var yyyy = todayDate.getFullYear();
+     //console.log("yyyy :-"+yyyy)
+     //var currentDate = `${dd}/${mm}/${yyyy}`
+     //var datePattern = dd + '/' + mm + '/' + yyyy;
+     var datePattern = yyyy + '-' + mm + '-' + dd
+     //console.log("datePattern :-"+datePattern)
+
+     //===== due date pattern =======dueDate
+     var dueDatePattern = yyyy + '-' + mm + '-' + due_dd
+     //console.log("dueDatePattern :-"+dueDatePattern)
+
+    
+     createDateValue.value = datePattern;
+     dueDateValue.value = dueDatePattern;
+
+
+     // ============== location =======================
+     /*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115293.28373109757!2d78.49224779496136!3d25.44110124288665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397776d458ba7703%3A0x96e9cda55c3481ca!2sJhansi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1641818090068!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>*/
+
+     function getLocationValue(){
+        locationValue = document.getElementById('prop_location').value;
+        //console.log(locationValue)
+        let locationQuerySelector = document.querySelector('.locationDiv')
+        /*var createIframe = document.createElement("iframe")
+        createIframe.src= locationValue
+        locationQuerySelector.appendChild(createIframe)
+        //locationQuerySelector.appendChild(locationQuerySelector)*/
+        locationQuerySelector.innerHTML = locationValue
+     }
+</script>
+
+
+<!-- ============== surveyor ======================== -->
+<script>
+
+    $("#openSurveyModal").click( () =>{
+        //alert("working")
+        //getSurveyDetails();
+        $("#surveyModalToggle").modal('show')
+    })
+
+    function getSurveyDetails(){
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/getSurveyDetails",'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                //console.log(resp)  
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }else{
+                    //console.log(resp.surveyDetails)
+                    var surveyorData = '';
+                    $.each(resp.surveyDetails, function(key, value){
+                       //surveyorData += '<label for="clientId'+key+'">' ;
+                       surveyorData += '<tr>';
+                       surveyorData += '<td><div><input type="radio" name="surveyorIds" onchange="surveyorId('+this.user_id+')" value="'+value.user_id+'" id="surveyId'+key+'"></div></td>';    
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.status+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div class="tableColumn_img"><img src="/uploadProfileImage/'+value.image+'"/></div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.userType+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.username+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.first_name+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.last_name+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.father_name+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.DOB+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.email+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.contact_1+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.contact_2+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.bank_name+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.bank_account+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ID_number+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ID_type+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.address_HN+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.address_street+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.address_city+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ref_1+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ref_2+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ref_3+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ref_1_detail+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ref_2_detail+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.ref_3_detail+'</div></label></td>'; 
+                       //surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.remarks+'</div></label></td>'; 
+                       surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.create_by+'</div></label></td>'; 
+                       //surveyorData += '<td><label for="surveyId'+key+'"><div>'+value.create_date+'</div></label></td>'; 
+                       surveyorData += '</tr>';
+                       //surveyorData += '</label>';
+                    });    
+                    $("#surveyBody").append(surveyorData);
+                }
+            }catch (e){
+                console.error("could not parse Json...")
+                alert(e);
+            }
+        }
+    }
+
+
+    //$(document).ready(function(){
+        getSurveyDetails();
+    //})
+
+    var getSurveyorId = document.getElementById('openSurveyModal');
+    getSurveyorId.innerHTML = '<option value="">Select Surveyor ...</option>';
+
+    function surveyorId(surveyId){
+        //console.log(surveyId)
+
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/getSurveyorDetailById/"+surveyId,'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                //console.log(resp)  
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }else{
+                    //console.log(resp.surveyDetailsById);
+                    var newOptionSurvey = document.createElement("option");
+                    newOptionSurvey.value = resp.surveyDetailsById.user_id
+                    newOptionSurvey.setAttribute('selected',true)
+                    newOptionSurvey.innerHTML = resp.surveyDetailsById.first_name +' '+ resp.surveyDetailsById.last_name;
+                    getSurveyorId.options.add(newOptionSurvey);
+
+                    $("#surveyModalToggle").modal('hide');
+
+                }
+            }catch (e){
+                console.error("could not parse Json...")
+                alert(e);
+            }
+        }
+        
+    }
+   
+
+    /*setInterval( () => {
+        getSurveyDetails()
+    },1000)*/
+
+    // ============== editor function ===============
+    //allEditors ,
+
+    var getEditorId = document.getElementById('editor');
+    getEditorId.innerHTML = '<option value="">Select Editor ...</option>';
+
+    $("#editor").click( () =>{
+        //alert("working")
+        //getSurveyDetails();
+        $("#editorModalToggle").modal('show')
+
+        
+    })
+
+    function getEditorDetails(){
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/allEditors",'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                //console.log(resp)  
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }else{
+                    //console.log(resp.editorDetails)
+                    var editorData = '';
+                    $.each(resp.editorDetails, function(key, value){
+                       //clientsData += '<label for="clientId'+key+'">' ;
+                       editorData += '<tr>';
+                       editorData += '<td><div><input type="radio" name="editorIds" onchange="getEditorById('+this.user_id+')" value="'+value.user_id+'" id="editorId'+key+'"></div></td>';    
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.status+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div class="tableColumn_img"><img src="/uploadProfileImage/'+value.image+'"/></div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.userType+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.username+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.first_name+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.last_name+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.father_name+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.DOB+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.email+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.contact_1+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.contact_2+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.bank_name+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.bank_account+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ID_number+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ID_type+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.address_HN+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.address_street+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.address_city+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ref_1+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ref_2+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ref_3+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ref_1_detail+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ref_2_detail+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.ref_3_detail+'</div></label></td>'; 
+                       //editorData += '<td><label for="surveyId'+key+'"><div>'+value.remarks+'</div></label></td>'; 
+                       editorData += '<td><label for="editorId'+key+'"><div>'+value.create_by+'</div></label></td>'; 
+                       //editorData += '<td><label for="surveyId'+key+'"><div>'+value.create_date+'</div></label></td>'; 
+                       editorData += '</tr>';
+                       //editorData += '</label>';
+                    });    
+                    $("#editorBody").append(editorData);
+                }
+            }catch (e){
+                console.error("could not parse Json...")
+                alert(e);
+            }
+        }
+    }
+
+    getEditorDetails();
+
+    function getEditorById(editorId){
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/getEditorDetailById/"+editorId,'TRUE'); // open request
+        //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = () => {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                //console.log(resp)  
+                if(resp.status == 'error'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }else{
+                    //console.log(resp)
+                    //console.log(resp.editorDetailsById);
+                    var newOptionEditor = document.createElement("option");
+                    newOptionEditor.value = resp.editorDetailsById.user_id
+                    newOptionEditor.setAttribute('selected',true)
+                    newOptionEditor.innerHTML = resp.editorDetailsById.first_name +' '+ resp.editorDetailsById.last_name;
+                    getEditorId.options.add(newOptionEditor);
+                    $("#editorModalToggle").modal('hide');
+
+                }
+            }catch (e){
+                console.error("could not parse Json...")
+                alert(e);
+            }
+        }
+    }
+
+</script>
+
+<!-- <script>    
+    var clientTableName = document.getElementById('clientBody'),rIndex;
+    for(var i=0; i < clientTableName.rows.length; i++){
+        clientTableName.rows[i].onclick = function()
+        {
+            rIndex = this.rowIndex;
+            console.log(rIndex);
+        }
+    }
+</script> -->
+
+<!-- ================== -->
+<script>
+    cityCodeInput = document.getElementById('cityCode');
+    cityCodeInput.disabled = true
+
+    function setInputAttributeOrGetBankDetails(bank_code){
+        //console.log(bank_code)
+
+        const banCodeQuerySelector = document.querySelector('.bankCode');
+        banCodeQuerySelector.innerHTML = bank_code;
+        //========= get bank name =======
+        const ajaxReq = new XMLHttpRequest(); // create object
+        ajaxReq.open('GET',"<%= serverUrl %>/getBankNameByBankCode/"+bank_code,'TRUE'); // open request
+        ajaxReq.send();
+        ajaxReq.onreadystatechange = function(){
+            if(ajaxReq.readyState == 4 && ajaxReq.status == 200){
+                //console.log(ajaxReq.responseText);
+                //console.log(ajaxReq.response)
+                
+                /*attachment_file: "boi _2021-12-31_Marketing - Executive Program in Financial Analytics.docx"
+                bank_RO_DGM: "Bank dgm"
+                bank_RO_address: "bank address jhasniii"
+                bank_RO_number: 1234567890
+                bank_code: "boi "
+                bank_id: 6
+                bank_name: "bank of india"
+                create_by: "sri@123 - Admin"
+                create_date: "2021-12-31T13:36:50.000Z"
+                remarks: "bank details remarks"
+                status: "Active"*/
+                
+                let bankNameResp = ajaxReq.response;
+                let obj  = JSON.parse(bankNameResp);
+                //console.log(obj);
+                //console.log(obj.bankDetails[0])
+
+                var bankName = obj.bankDetails[0].bank_name;
+                //console.log(bankName)
+                const bankNameId = document.getElementById('bankName')
+                bankNameId.value = bankName;
+                //console.log(branchName)
+
+                var bankId = obj.bankDetails[0].bank_id;
+                //console.log(bankId)
+                const bankCodeId = document.getElementById('bankId')
+                bankCodeId.value = bankId;
+
+                const bankBaneSelector = document.querySelector('.bankName');
+                bankBaneSelector.innerHTML = bankName
+
+                const bankRoAddress = document.querySelector('.bankAddress');
+                bankRoAddress.innerHTML = obj.bankDetails[0].bank_RO_address;
+                
+
+                
+            }
+        }
+
+        //cityCodeInput.disabled = false;
+        if(bank_code){
+            //console.log("bank_code selected :-"+bank_code);
+            //cityCodeInput.disabled = false;
+             $(cityCodeInput).prop('disabled', false)
+        }
+        else{
+            //console.log("no selected")
+            cityCodeInput.disabled = true;
+        }
+        //var cityValue = cityCodeInput.value;
+        cityCodeInput.value = "";
+
+        
+    }     
+</script>
+
+<!-- ============ get branch Details ========= -->
+<script>
+    function getBrancDetails(selectedBranchName){
+       cityCodeInput = document.getElementById('cityCode');
+       var selectedCityCode = cityCodeInput.value;
+       //console.log("selectedCityCode :- "+ selectedCityCode)
+       //console.log("selectedBranchName :-"+selectedBranchName);
+       //========= get bank name =======
+       const ajaxReq = new XMLHttpRequest(); // create object
+       ajaxReq.open('GET',"<%= serverUrl %>/getBranchDetailsByBranchNameOrCityCode/"+selectedBranchName+"/"+selectedCityCode,'TRUE'); // open request
+       ajaxReq.send();
+       ajaxReq.onreadystatechange = function(){
+           if(ajaxReq.readyState == 4 && ajaxReq.status == 200){
+               //console.log(ajaxReq.responseText);
+               //console.log(ajaxReq.response)
+
+               /* bank_code: "boi "
+                branch_IFSC: "branch ifsc"
+                branch_RO_code: "branch r.o code"
+                branch_address: "branch address here - jhansi"
+                branch_contact_1: 1234567890
+                branch_contact_2: 987654321
+                branch_email: "branch@gmail.com"
+                branch_id: 4
+                branch_name: "branch name - bank of india"
+                branch_scale: "beranch scale here"
+                branch_section: "branch section here"
+                branch_type: "branch type"
+                city_code: "city code new"
+                city_name: "city name"
+                create_by: "sri@123 - Admin"
+                create_date: "2022-01-05T11:54:39.000Z"
+                status: "Active"*/
+               let branchNameResp = ajaxReq.response;
+               let obj  = JSON.parse(branchNameResp);
+               //console.log(obj);
+               //console.log(obj.branchDetails);
+               
+               
+               /*const bankNameId = document.getElementById('bankName')
+               bankNameId.value = bankName;*/
+
+               const branchNameSelector = document.querySelector('.branchName');
+               branchNameSelector.innerHTML = obj.branchDetails.branch_name
+
+               const branchContactSelector = document.querySelector('.branchContact');
+               branchContactSelector.innerHTML = obj.branchDetails.branch_contact_1 +" , "+obj.branchDetails.branch_contact_2;
+
+               const branchEmailSelector = document.querySelector('.branchEmail');
+               branchEmailSelector.innerHTML = obj.branchDetails.branch_email;
+
+               //========== branchManager details =====
+               //console.log(obj.branchManager);
+               //console.log(obj.branchManager.length)
+
+               const managerNameSelector = document.querySelector('.managerName')
+               if(obj.branchManager.length == 0){
+                    managerNameSelector.innerHTML = "<b>No any manager in this branch.<b>";
+               }
+               else{
+                    managerNameSelector.innerHTML = "<b>"+obj.branchManager.manager_name+"</b>";
+               }
+
+               
+           }
+       }
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#addLead").addClass('active');
+    })
+
+      
+    function getBranchName(city_code){
+        bankCodeValue = document.getElementById('bankCode');        
+        var bank_code = bankCodeValue.value
+        //console.log(bank_code)
+        //console.log(city_code)
+
+        // ====using ajax===== 
+        //1: ajax object xmlhttp
+        //2: object request open
+        //3: object send in server
+        //4: process to check server state and status
+        //5: get Response
+
+
+        const ajaxReq = new XMLHttpRequest(); // create object
+        ajaxReq.open('GET',"<%= serverUrl %>/getBranchName/"+bank_code+"/"+city_code,'TRUE'); // open request
+        ajaxReq.send();
+        ajaxReq.onreadystatechange = function(){
+            if(ajaxReq.readyState == 4 && ajaxReq.status == 200){
+                //console.log(ajaxReq.responseText);
+                //console.log(ajaxReq.response)
+                let bankName = ajaxReq.response;
+                let obj  = JSON.parse(bankName);
+                //console.log(obj.bankNames);
+
+                const branchNameId = document.getElementById('branchName')
+                //console.log(branchNameId)
+
+                branchNameId.innerHTML = '<option value="">Choose ...</option>';
+                if(obj.bankNames.length > 0){
+                    for(let i=0; i<obj.bankNames.length; i++){
+                        //console.log(obj.bankNames[i]);
+                        //console.log(obj.bankNames[i].branch_name);                    
+                        var newOption = document.createElement("option");
+                        newOption.value=obj.bankNames[i].branch_name
+                        newOption.innerHTML=obj.bankNames[i].branch_name
+                        branchNameId.options.add(newOption);
+                    }
+                }else{
+                    //branchNameId.innerHTML = '<option value="">Choose Branch Name ...</option>';
+                    alert("No any branch name in this bank or city");
+                }
+                
+            }
+        }
+    }
+
+</script>

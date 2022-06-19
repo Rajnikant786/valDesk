@@ -1,0 +1,1545 @@
+<input type="checkbox" name="" id="sideMenu_Toggle">
+
+<!-- ===================side menu============= -->
+<%- include('common/sideMenu'); -%>
+
+<!-- ===================main content============= -->
+<div class="main_content">
+
+    <%- include('common/header'); -%>
+
+    <main>
+        <div class="page_header">
+            <div>
+                <h1><%= title %></h1><br/>
+                <!-- <small>Welcome ayt store. check reporting and review insights</small> -->
+            </div>
+        </div>
+
+        <hr class="line"> 
+
+        <% if(messages.error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Something went wrong !</h4>
+                <hr>
+                <p class="mb-0"><%= messages.error %></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>            
+        <% } %>   
+
+        <% if(messages.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Success !</h4>
+                <hr>
+                <p class="mb-0"><%= messages.success %></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>            
+        <% } %> 
+
+
+                <!-- ======= showDocumentsModal ===================== -->
+                <div class="modal fade upload_modal" id="showDocumentsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Upload Documents</h5> <!-- <span id="uploadedBy_text"></span>-->
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body form_section">
+        
+                                <form class="needs-validation" action="/uploadLeadDocuments" method="POST"  enctype="multipart/form-data" id="submitLeadDoc_notUse" novalidate> <!--uploadLeadDocuments-->
+        
+                                    <div id="serverRespBox">
+            
+                                    </div> 
+        
+                                    <input type="hidden" name="uploaded_by" value="<%= userName %> - <%= userType %>">
+                                    <input type="hidden" class="form-control form-control-sm input_field" name="lead_id" id="row_leadId" readonly>
+                                    
+                                    <div id="doc_leadId" class="ids_text"></div>
+        
+                                    <div class="card fieldshet_container form_fieldshet mt-3" id="allDocumentsFieldshet">
+                                        <fieldset>
+                                            <legend>Document details<span class="text-danger">*</span></legend>
+                                            
+                                            <div id="uploadDoc_Msg">
+        
+                                            </div>
+                                            <div id="uploadDocumentBody">
+                                                
+                                            </div>
+        
+                                            <button class="btn btn-sm btn-success" id="uploadMoreDocBtn" type="button">Upload More Documents</button>
+                                        </fieldset>
+                                    </div>
+                                    
+                                    <div class="card fieldshet_container form_fieldshet mt-3" id="documentForm">
+                                        <fieldset>
+                                            <legend>Upload Documents<span class="text-danger">*</span></legend>
+        
+                                            <div class="row mb-3">
+                                                    <div class="col-6">
+                                                        <label for="">Document<span>*</span></label>
+                                                        <input type="file" class="form-control form-control-sm input_field" name="leadDocument" required>
+                                                        <div class="invalid-feedback">
+                                                            Please choose lead document file or image
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="">Document Type<span>*</span></label>
+                                                            <select class="form-select form-select-sm input_field" name="document_type"  id="row_status" required> <!--onchange="this.form.submit()"-->
+                                                                <option value="" >choose...</option>
+                                                                <option value="Sale Deed">
+                                                                    Sale Deed
+                                                                </option>
+                                                                <option value="Registory" >
+                                                                    Registory
+                                                                </option>                                            
+                                                                <option value="Agreement">
+                                                                    Agreement
+                                                                </option>
+                                                                <option value="Photo Interior">
+                                                                    Photo Interior
+                                                                </option>
+                                                                <option value="Photo Exterior">
+                                                                    Photo Exterior
+                                                                </option>  
+                                                                <option value="NEC" >
+                                                                    NEC
+                                                                </option> 
+                                                                <option value="House Plan" >
+                                                                    House Plan
+                                                                </option> 
+                                                                <option value="Layout Plan" >
+                                                                    Layout Plan
+                                                                </option>
+                                                            </select>
+                                                            <div class="invalid-feedback">
+                                                                Please select a document type.
+                                                            </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-12">
+                                                        <label for="">Remarks<span>*</span></label>
+                                                        <textarea class="form-control form-control-sm input_field" name="remarks" id="" cols="" rows="3" placeholder="Remarks" required></textarea>      
+                                                        <div class="invalid-feedback">
+                                                            This field is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                        </fieldset>
+                                    </div>
+        
+                                    <!-- <div class="card fieldshet_container form_fieldshet mt-5">
+                                        <fieldset>
+                                            <legend>Lead details<span class="text-danger">*</span></legend>
+        
+                                        </fieldset>
+                                    </div> -->
+                                
+                                    <!-- ======== document show========= -->
+                                    <!-- <div id="uploadDoc_Msg">
+        
+                                    </div>
+                                    <div id="uploadDocumentBody">
+                                        
+                                    </div> -->
+                                    <!-- =============================== -->
+                                    <div class="col-12 text-center mt-4 form_btn">
+                                        <button class="btn btn-sm btn-primary submit_btn" id="submitDoc_btn" type="submit">Submit form</button> &nbsp;
+                                        <!-- <a href="javascript:void(0)" onclick="loadClientList()" class="btn btn-sm btn-dark submit_btn">Back</a> -->
+                                        <button type="button" class="btn btn-sm btn-dark submit_btn" data-bs-dismiss="modal">Close</button>
+                                    </div> 
+        
+                                </form>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- ======= showSurveyorModal ====================== -->
+                <div class="modal fade upload_modal" id="showSurveyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Surveyor Lead Action</h5> <!-- <span id="uploadedBy_text"></span>-->
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body form_section">
+                                
+                                
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <form class="needs-validation"  id="submitSurveyForm" novalidate> <!--action="/fillSurvey" method="POST" ,uploadLeadDocuments , submitLeadDoc_notUse ,  enctype="multipart/form-data"-->
+        
+                                            <!-- ====== server Response ====== -->
+                                            <div class="surveyServerResp"></div>
+                                            <!-- =================== -->
+                
+                                            <input type="hidden" name="uploaded_by" value="<%= userName %> - <%= userType %>">
+                                            <!-- <input type="hidden" class="form-control form-control-sm input_field" name="lead_id" id="row_survey_leadId" readonly> -->
+                                            <input type="hidden" name="user_id" value="<%= userId %>">
+                                            
+                                            <div id="survey_leadId" class="ids_text"></div>
+                
+                                            <div class="card fieldshet_container form_fieldshet mt-3" id="allDocumentsFieldshet">
+        
+                                                <fieldset>
+                                                    <legend>Lead details<span class="text-danger">*</span></legend>
+                                             
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <label for="row_survey_leadId" class="form-label">Survey Lead Id<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="lead_id" id="row_survey_leadId"  required readonly>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid lead Id.
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <label for="row_survey_leadId" class="form-label">Date<span>*</span></label>
+                                                            <input type="date" class="form-control  input_field" name="survey_date"  id="createDate">
+                                                            <div class="invalid-feedback">
+                                                                Please provide a date.
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                
+                                                </fieldset>
+                
+                                                <br>
+                
+                                                <fieldset>
+                                                    <legend>Bank details<span class="text-danger">*</span></legend>
+                                             
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <label for="bankName" class="form-label">Bank Name<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="bank_name" id="bankName"  required readonly>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid Bank Name.
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <label for="row_survey_leadId" class="form-label">Branch Name<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="branch_name" id="branchName"  required readonly>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid Branch Name.
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <label for="row_survey_leadId" class="form-label">Branch Email<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="branch_email" id="branchEmail"  required readonly>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid Branch Email.
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                
+                                                </fieldset>
+                
+                                                <br>
+                
+                                                <fieldset>
+                                                    <legend>Borrower details<span class="text-danger">*</span></legend>
+                                             
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="borrowerName" class="form-label">Borrower Name<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="borrower_name" id="borrowerName"  required readonly>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid Borrower Name.
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="caseHistory" class="form-label">Case History<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="case_history" id="caseHistory"  required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide case history.
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="propertyAddress" class="form-label">Property Address<span>*</span></label>
+                                                            <textarea rows="3" type="text" class="form-control  input_field" name="property_address" id="propertyAddress"  required readonly></textarea>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid Property Address.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+        
+                                                <br>
+        
+                                                <fieldset>
+                                                    <legend>Property details<span class="text-danger">*</span></legend>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="boundariesMatch" class="form-label">Boundaries Match<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="boundaries_match" id="boundariesMatch"  required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid Boundaries .
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="propertyBrief" class="form-label">Property Bries<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="property_brief" id="propertyBrief"  required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a  Property Brief .
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </fieldset>   
+                                                
+                                                <br>
+        
+                                                <fieldset>
+                                                    <legend>Documents Review<span class="text-danger">*</span></legend>
+                                                <!-- <div class="modal-body form_section"> -->
+                
+                                                        <div class="documentsReview_box">
+                                                            <div id="uploadDoc_Msg">
+                            
+                                                            </div>
+                                                            <div id="documentReview">
+                                                                    
+                                                            </div>
+                            
+                                                            <!-- <button class="btn btn-sm btn-success d-block mx-auto" id="uploadMoreDocBtnReview" type="button">Upload More Documents</button> -->
+                                                        </div>
+                                                        
+                                
+                                                    <!-- </div> -->
+                                                </fieldset>   
+                                                
+                                                <!-- <br>
+        
+                                                <fieldset class="documentsFieldset">
+                                                        <legend>Upload Documents<span class="text-danger">*</span></legend>
+                    
+                                                        <div class="row mb-3">
+                                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                    <label for="">Document<span>*</span></label>
+                                                                    <input type="file" class="form-control form-control-sm input_field" name="leadDocument" required>
+                                                                    <div class="invalid-feedback">
+                                                                        Please choose lead document file or image
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                    <label for="">Document Type<span>*</span></label>
+                                                                        <select class="form-select form-select-sm input_field" name="document_type"  id="row_status" required> 
+                                                                            <option value="" >choose...</option>
+                                                                            <option value="Sale Deed">
+                                                                                Sale Deed
+                                                                            </option>
+                                                                            <option value="Registory" >
+                                                                                Registory
+                                                                            </option>                                            
+                                                                            <option value="Agreement">
+                                                                                Agreement
+                                                                            </option>
+                                                                            <option value="Photo Interior">
+                                                                                Photo Interior
+                                                                            </option>
+                                                                            <option value="Photo Exterior">
+                                                                                Photo Exterior
+                                                                            </option>  
+                                                                            <option value="NEC" >
+                                                                                NEC
+                                                                            </option> 
+                                                                            <option value="House Plan" >
+                                                                                House Plan
+                                                                            </option> 
+                                                                            <option value="Layout Plan" >
+                                                                                Layout Plan
+                                                                            </option>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select a document type.
+                                                                        </div>
+                                                                </div>
+                                                                <br>
+                                                                <div class="col-12">
+                                                                    <label for="">Remarks<span>*</span></label>
+                                                                    <textarea class="form-control form-control-sm input_field" name="remarks" id="" cols="" rows="3" placeholder="Remarks" required></textarea>      
+                                                                    <div class="invalid-feedback">
+                                                                        This field is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                    
+                                                </fieldset> -->
+                
+                                                <br>
+        
+                                                <fieldset>
+                                                    <legend>General<span class="text-danger">*</span></legend>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="Purpose" class="form-label"><b>1</b>Purpose for which the valuation is made<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="purpose" id="Purpose"  required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a Purpose.
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="inspectionDate" class="form-label"><b>2 - a</b>Date of Inspection<span>*</span></label>
+                                                            <input type="date" class="form-control  input_field" name="inspection_date" id="inspectionDate"  required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a inspection date.
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <label for="valiuationDate" class="form-label"><b>2 - b</b>Date on which the valuation is made<span>*</span></label>
+                                                            <input type="date" class="form-control  input_field" name="valuation_date" id="valiuationDate"  required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valuation date.
+                                                            </div>
+                                                        </div>
+                                                    </div>   
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="docListPersual" class="form-label"><b>3</b>List of documents produced for perusal<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="document_list_perusal" id="docListPersual"  required>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="ownerName" class="form-label"><b>4</b>Name of the owner(s) and his / their address (es) with Phone no. (details of share of each owner in case of joint ownership)<span>*</span></label>
+                                                            <textarea type="text" rows="3" class="form-control  input_field" name="owner_name" id="ownerName"  required></textarea>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="propertyDescription" class="form-label"><b>5</b>Brief Decription of the property 
+                                                            (inculding Leasehold/freehold etc.)<span>*</span></label>
+                                                            <textarea type="text" rows="3" class="form-control  input_field" name="property_description" id="propertyDescription"  required></textarea>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                
+                                                    <br>
+        
+                                                    <fieldset>
+                                                        <legend class="subLegend">Location Of Property<span class="text-danger">*</span></legend>
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="plotNo" class="form-label"><b>6 - a</b>Plot No. / Survey No.<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="plot_no" id="plotNo"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="doorNo" class="form-label"><b>6 - b</b>Door No.<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="door_no" id="doorNo"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="village" class="form-label"><b>6 - c</b>T.Sno. / Village<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="village" id="village"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- ====== -->
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="wardTaluka" class="form-label"><b>6 - d</b>Ward / Taluka<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="ward_taluka" id="wardTaluka"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- ====== -->
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="district" class="form-label"><b>6 - e</b>Mandal / District<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="district" id="district"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- ====== -->
+                                                            <div class="col-md-12">
+                                                                <label for="postalAddress" class="form-label"><b>7</b>Postal address of the property<span>*</span></label>
+                                                                <textarea type="text" class="form-control  input_field" name="postal_address" id="postalAddress" rows="3" required></textarea>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- ======= -->
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <label for="cityTown" class="form-label"><b>8 - a</b>City / Town<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="city" id="cityTown"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <label for="residentailArea" class="form-label"><b>8 - b</b>Residential Area<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="residentail_area" id="residentailArea"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-123">
+                                                                <label for="commercialArea" class="form-label"><b>8 - c</b>Commercial Area<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="commercial_area" id="commercialArea"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                                <label for="industrialArea" class="form-label"><b>8 - d</b>Industrial Area<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="industrial_area" id="industrialArea"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- ====== -->
+                                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                <label for="classificationArea1" class="form-label"><b>9</b><strike>Classification of the area</strike>&nbsp; <b>9 - i</b>High / Middle / Poor<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="classification_area_1" id="classificationArea1"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                <label for="classificationArea2" class="form-label"><b>9 - ii</b>Urban / Semi-urban / Rural<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="classification_area_2" id="classificationArea2"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="commingUnder" class="form-label"><b>10</b>Coming under Corporation limit / Village Panchayat / Municipality<span>*</span></label>
+                                                                <input type="text" class="form-control  input_field" name="comming_under" id="commingUnder"  required>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="coveredUnder" class="form-label"><b>11</b>Whether covered under any State / Central Govt. enactments (e.g. Urban Land Ceiling Act) or notified under agency area / scheduled area / cantonment area<span>*</span></label>
+                                                                <textarea type="text" rows="3" class="form-control  input_field" name="covered_under" id="coveredUnder"  required></textarea>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="incaseAgriculturalLand" class="form-label"><b>12</b>In case it is an agricultural land, any conversion to house site plots is contemplated<span>*</span></label>
+                                                                <textarea type="text" rows="3" class="form-control  input_field" name="incase_agricultural_land" id="incaseAgriculturalLand"  required></textarea>
+                                                                <div class="invalid-feedback">
+                                                                    This field is required.
+                                                                </div>
+                                                            </div>
+                                                        </div>    
+                                                    </fieldset> 
+                                                    
+                                                    <br>
+        
+                                                    <fieldset>
+                                                        <legend><b>13</b>Boundaries of the property<span class="text-danger">*</span></legend>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <br>
+                                                                <fieldset>
+                                                                    <legend class="subLegend">As Per The Deed</legend>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label for="northBoundariesDeed" class="form-label">North<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="north_boundaries_deed" id="northBoundariesDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label for="southBoundariesDeed" class="form-label">South<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="south_boundaries_deed" id="southBoundariesDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label for="eastBoundariesDeed" class="form-label">East<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="east_boundaries_deed" id="eastBoundariesDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label for="westBoundariesDeed" class="form-label">West<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="west_boundaries_deed" id="westBoundariesDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>    
+                                                            </div>
+        
+                                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                <br>
+                                                                <fieldset>
+                                                                    <legend class="subLegend">As Per Actual</legend>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="northBoundariesActual" class="form-label">North<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="north_boundaries_actual" id="northBoundariesActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="southBoundariesActual" class="form-label">South<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="south_boundaries_actual" id="southBoundariesActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="eastBoundariesActual" class="form-label">East<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="east_boundaries_actual" id="eastBoundariesActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="westBoundariesActual" class="form-label">West<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="west_boundaries_actual" id="westBoundariesActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>    
+                                                            </div>
+                                                        </div>                                           
+                                                    </fieldset>    
+                                                    
+                                                    <br>
+        
+                                                    <fieldset>
+                                                        <legend><b>14 - 1</b>Dimensions of the site<span class="text-danger">*</span></legend>
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                <br>
+                                                                <fieldset>
+                                                                    <legend class="subLegend">As Per The Deed</legend>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="nortDimensionDeed" class="form-label">North<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="north_dimension_deed" id="nortDimensionDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="southDimensionDeed" class="form-label">South<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="south_dimension_deed" id="southDimensionDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="eastDimensionDeed" class="form-label">East<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="east_dimension_deed" id="eastDimensionDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="westDimensionDeed" class="form-label">West<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="west_dimension_deed" id="westDimensionDeed"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>    
+                                                            </div>
+        
+                                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                <br>
+                                                                <fieldset>
+                                                                    <legend class="subLegend">As Per Actual</legend>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="northDimensionActual" class="form-label">North<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="north_dimension_actual" id="northDimensionActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="southDimensionActual" class="form-label">South<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="south_dimension_actual" id="southDimensionActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="eastDimensionActual" class="form-label">East<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="east_dimension_actual" id="eastDimensionActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                            <label for="westDimensionActual" class="form-label">West<span>*</span></label>
+                                                                            <input type="text" class="form-control  input_field" name="west_dimension_actual" id="westDimensionActual"  required>
+                                                                            <div class="invalid-feedback">
+                                                                                This field is required.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>    
+                                                            </div>
+                                                        </div>   
+                                                    
+                                                        <br>
+        
+                                                        <fieldset>
+                                                            <legend class="subLegend"><b>14 - 2</b>Latitude, Longitude and Coordinates of the site<span class="text-danger">*</span></legend>    
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                    <label for="LatitudeCoordinate" class="form-label">Latitude<span>*</span></label>
+                                                                    <input type="text" class="form-control  input_field" name="latitude" id="LatitudeCoordinate"  required>
+                                                                    <div class="invalid-feedback">
+                                                                        This field is required.
+                                                                    </div>
+                                                                </div> 
+                                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                                    <label for="LongitudeCoordinate" class="form-label">Longitude<span>*</span></label>
+                                                                    <input type="text" class="form-control  input_field" name="longitude" id="LongitudeCoordinate"  required>
+                                                                    <div class="invalid-feedback">
+                                                                        This field is required.
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </fieldset>   
+        
+                                                    </fieldset> 
+        
+                                                    <!-- <br> -->
+        
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="extentSite" class="form-label"><b>15</b>Extent of the site<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="extent_site" id="extentSite"  required>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div> 
+        
+                                                        <div class="col-md-12">
+                                                            <label for="extentSiteValuation" class="form-label"><b>16</b>Extent of the site considered for valuation (least of 14 A & 14 B)<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="extent_site_valuation" id="extentSiteValuation"  required>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div> 
+        
+                                                        <div class="col-md-12">
+                                                            <label for="occupiedBy" class="form-label"><b>17</b>Whether occupied by the owner / tenant? If occupied by tenant, since how long? Rent received per month.<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="occupied_by" id="occupiedBy"  required>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div> 
+
+                                                        <!-- <div class="col-md-12">
+                                                            <label for="status" class="form-label">Status<span>*</span></label>
+                                                            <input type="text" class="form-control  input_field" name="occupied_by" id="occupiedBy"  required>
+                                                            <div class="invalid-feedback">
+                                                                This field is required.
+                                                            </div>
+                                                        </div>  -->
+
+                                                        <div class="col-12">
+                                                            <label for="status" class="form-label">Status <span>*</span></label>
+                                                            <select class="form-select input_field" id="status" name="lead_status"  required>
+                                                                <option value="">Choose...</option>
+                                                                <option value="visit/visited" selected>visit/visited</option>
+                                                                <option value="to Act">to Act</option>
+                                                                <option value="signed">signed</option>
+                                                                <option value="correction">correction</option>
+                                                                <option value="cancelled">cancelled</option>
+                                                                <option value="hold bank">hold bank</option>
+                                                                <option value="hold on us">hold on us</option>
+                                                                <option value="Delivered">Delivered</option>
+                                                            </select>
+                                                            <div class="invalid-feedback">
+                                                                Please select a status.
+                                                            </div>
+                                                        </div>
+
+                                                    </div>    
+                                                
+                                                </fieldset>
+        
+                                                <!-- <br>
+        
+                                                <fieldset>
+                                                    <legend>Characteristics Of The Site<span class="text-danger">*</span></legend>
+                                                    <div class="row">
+        
+                                                    </div>
+                                                </fieldset>         -->
+                                            </div>
+
+                                            <!-- <div class="col-12 text-center mt-4 form_btn">
+                                                <button class="btn btn-sm btn-primary submit_btn" type="submit">Submit form</button> &nbsp;
+                                                <a href="/allBanks" class="btn btn-sm btn-dark submit_btn">Back</a>
+                                            </div> -->
+
+                                            <div class="col-12 text-center mt-4 form_btn">
+                                                <button class="btn btn-sm btn-primary submit_btn" id="" type="submit">Submit form</button> &nbsp;
+                                                <!-- <a href="javascript:void(0)" onclick="loadClientList()" class="btn btn-sm btn-dark submit_btn">Back</a> -->
+                                                <button type="button" class="btn btn-sm btn-dark submit_btn" data-bs-dismiss="modal">Close</button>
+                                            </div> 
+                                        
+                                        </form> 
+                                    </div>
+                                    <!-- <div class="col-lg-5 col-md-5 col-sm-12 relative_p">
+                                        <div class="documentsCanvas_box card">
+                                            <div class="documentCanvas_header">
+                                                <div id="navigation_controls">
+                                                    <button id="go_previous" class="previous">
+                                                        <span>Previous</span>
+                                                    </button>
+                                                    <input type="text" name="page_no" id="current_page" value="1" readonly="true">
+                                                    <button id="go_next" class="next">
+                                                        <span>Next</span>
+                                                    </button>
+                                                </div>
+                                                <div id="zoom_controls">
+                                                    <button id="zoon_in" class="zoom">+</button>
+                                                    <button id="zoon_out" class="zoom">+</button>
+                                                </div>
+                                            </div>
+                                            <div id="canvas_container">
+                                                <canvas id="pdf_reader"></canvas>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+        
+                <!-- ====================================================== -->
+
+        <!--lead_id: 1,
+         lead_id: 1,
+        date: '2022-01-11',
+        due_date: '2022-01-13',
+        work_type: 'Val',
+        bank_id: 6,
+        bank_code: 'boi ',
+        bank_name: 'bank of india',
+        city_code: 'city code new',
+        branch_name: 'branch name - bank of india',
+        borrower_id: 1,
+        lead_remarks: 'remarks here',
+        status: 'Active',
+        lead_address: 'Q-No:- G/115 , G-Type colony , Dugda coialwashery , Bokaro , jharkhand , pin - 828404',
+        lead_addressLink: 'https://goo.gl/maps/2upQgkUDA3cLGLeB9',
+        location: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115293.2837310214!2d78.49224796276309!3d25.441101242966226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397776d458ba7703%3A0x96e9cda55c3481ca!2sJhansi%2C%20Uttar%20Pradesh!5e0!',
+        surveyor_id: 7,
+        survey_date: '2022-01-11',
+        editor_id: 8,
+        submit_date: '2022-01-13',
+        create_by: 'sri@123 - Admin',
+        create_date: 2022-01-10T16:59:56.000Z,
+        client_id: 1,
+        borrower_name: 'borrower name',
+        last_name: 'Kushwaha',
+        mobile_number: '9876543210',
+        contact_type: 'contact type 1',
+        borrower_remarks: 'borrower remarks',
+        branch_id: 4,
+        city_name: 'city name',
+        branch_scale: 'beranch scale here',
+        branch_contact_1: 1234567890,
+        branch_contact_2: 987654321,
+        branch_IFSC: 'branch ifsc',
+        branch_section: 'branch section here',
+        branch_address: 'branch address here - jhansi',
+        branch_RO_code: 'branch r.o code',
+        branch_email: 'branch@gmail.com',
+        branch_type: 'branch type',
+        user_id: 8,
+        emp_id: 87676,
+        username: 'raj@123',
+        first_name: 'Raj',
+        father_name: 'raj father name',
+        DOB: 2018-01-31T18:30:00.000Z,
+        address_HN: 'jhanshi , raksha',
+        address_street: 'station road',
+        address_city: 'jhansi',
+        email: 'raj@gmail.com',
+        password: '$2b$10$J0PzUZoJfRY7vg9G3W7ome3IZw0dEBto5sf6bF5JKZBpyLFpDxlzm',
+        contact_1: '0987654321',
+        contact_2: '1234567890',
+        image: 'guest_male.jpg',
+        ref_1: 'ref1',
+        ref_2: 'ref2',
+        ref_3: 'ref3',
+        ref_1_detail: 'ref1 details',
+        ref_2_detail: 'ref 2 details',
+        ref_3_detail: 'ref3 detaikls',
+        bank_account: '9875423456',
+        ID_number: '6756',
+        ID_type: 'report editor',
+        userType: 'Report Editor',
+        Token: ''-->
+
+        <div class="mainCard_container">
+
+            <!-- ====== server Response ====== -->
+            <div class="surveyServerResp"></div>
+            <!-- =================== -->
+
+            <% leads.forEach(function(lead) { %>
+                <div class="card surveyCard">
+                    <div class="card-body">
+                        <h3 class="bankName"><%= lead.bank_name %></h3>
+                        <a href="" class="branchEmail"><span>Email :</span> <spans class="branchMail"><%= lead.branch_email %></spans></a>
+                        <p class="branch_name"><span>Branch :</span> <spans class="branchName"><%= lead.branch_name %></spans></p>                        
+                        <p class="id_text">Id -<span class="lead_id"><%= lead.lead_id %></span></p>
+                        <!-- <br> -->
+                    </div>
+                        
+                    <!-- ========= -->
+                    <div class="accordion" id="accordionPanelsStayOpenExample">                    
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo-<%= lead.lead_id %>" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                Borrower Details
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo-<%= lead.lead_id %>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                <!-- borrower_name: 'borrower name new',
+                                    last_name: 'last name',
+                                    mobile_number: '9111910849',
+                                    contact_type: 'Contact type 2',
+                                    remarks: 'borrower remarks', -->  
+                                    <div class="borrower_det">
+                                      <h2><i class="fas fa-user-tag"></i><span class="borrowerName"><%= lead.borrower_name %> <%= lead.last_name %></span></h2>
+                                      <a href="" class="mobile_no"><i class="fas fa-phone-alt"></i><%= lead.mobile_number %></a>
+                                      <h3><i class="fas fa-address-card"></i><%= lead.contact_type %></h3>
+                                      <p><i class="fas fa-user-edit"></i><%= lead.borrower_remarks %></p>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree-<%= lead.lead_id %>" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                    Editor Details
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree-<%= lead.lead_id %>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                                <div class="accordion-body">
+                                        <!-- user_id: 8,
+                                        emp_id: 87676,
+                                        username: 'raj@123',
+                                        first_name: 'Raj',
+                                        last_name: 'Kushwaha',
+                                        father_name: 'raj father name',
+                                        DOB: 2018-01-31T18:30:00.000Z,
+                                        address_HN: 'jhanshi , raksha',
+                                        address_street: 'station road',
+                                        address_city: 'jhansi',
+                                        email: 'raj@gmail.com',
+                                        password: '$2b$10$J0PzUZoJfRY7vg9G3W7ome3IZw0dEBto5sf6bF5JKZBpyLFpDxlzm',
+                                        contact_1: '0987654321',
+                                        contact_2: '1234567890',
+                                        image: 'guest_male.jpg',
+                                        ref_1: 'ref1',
+                                        ref_2: 'ref2',
+                                        ref_3: 'ref3',
+                                        ref_1_detail: 'ref1 details',
+                                        ref_2_detail: 'ref 2 details',
+                                        ref_3_detail: 'ref3 detaikls',
+                                        bank_name: 'bank of india',
+                                        bank_account: '9875423456',
+                                        ID_number: '6756',
+                                        ID_type: 'report editor',
+                                        userType: 'Report Editor',
+                                        status: 'Active', 
+                                    
+                                        ======== new =====
+                                        user_id: 8,
+                                        emp_id: 87676,
+                                        username: 'raj@123',
+                                        first_name: 'Raj',
+                                        father_name: 'raj father name',
+                                        DOB: 2018-01-31T18:30:00.000Z,
+                                        address_HN: 'jhanshi , raksha',
+                                        address_street: 'station road',
+                                        address_city: 'jhansi',
+                                        email: 'raj@gmail.com',
+                                        password: '$2b$10$J0PzUZoJfRY7vg9G3W7ome3IZw0dEBto5sf6bF5JKZBpyLFpDxlzm',
+                                        contact_1: '0987654321',
+                                        contact_2: '1234567890',
+                                        image: 'guest_male.jpg',
+                                        ref_1: 'ref1',
+                                        ref_2: 'ref2',
+                                        ref_3: 'ref3',
+                                        ref_1_detail: 'ref1 details',
+                                        ref_2_detail: 'ref 2 details',
+                                        ref_3_detail: 'ref3 detaikls',
+                                        bank_account: '9875423456',
+                                        ID_number: '6756',
+                                        ID_type: 'report editor',
+                                        userType: 'Report Editor',
+                                        status: 'Active',
+                                        Token: ''
+                                        --> 
+                                        <div class="borrower_det">
+                                            <h2><i class="fas fa-user-tag"></i><%= lead.first_name %> <%= lead.last_name %></h2>
+                                            <div class="contact_row"><a href="" class="mobile_no"><i class="fas fa-phone-alt"></i><%= lead.contact_1 %></a><span>|</span><a href="" class="mobile_no"><%= lead.contact_2 %></a></div>
+                                            <h3><i class="fas fa-address-card"></i><%= lead.bank_name %></h3>
+                                            <p><i class="fas fa-user-edit"></i><%= lead.userType %></p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ========= -->
+                    
+                    <div class="card-body pt-3">
+                        
+                        <h6>Work Type<span><%= lead.work_type %></span></h6>
+                        <h6>Date<span><%= lead.date %></span></h6>
+                        <h6>Due Date<span><%= lead.due_date %></span></h6>
+                        <h6>Status<span><%= lead.lead_status %></span></h6>  
+                        <p class="remarks"><%= lead.lead_remarks %></p>
+                        <% if(lead.lead_address != " " || lead.lead_address != null) { %>
+                        <a href="<%= lead.lead_addressLink  %>" target="_blank" class="address"><i class="fas fa-map-marked-alt"></i><spans class="leadAddress"><%= lead.lead_address %></spans></a>
+                        <% } %> 
+
+                        <div class="contact_links">
+                            <div class="action_link">
+                               <a href=""><i class="fas fa-phone-alt"></i></a>
+                               <span>Call Customer</span>
+                            </div>
+                            <div class="action_link">
+                               <a href="<%= lead.lead_addressLink  %>" target="_blank"><i class="fas fa-directions"></i></a>
+                               <span>Route Map</span>
+                            </div>
+                            <div class="action_link">
+                               <a href=""><i class="fas fa-user-tie"></i></a>
+                               <span>Call Office</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uploadDoc_row">
+                        <button data-bs-toggle="modal" data-bs-target="#showDocumentsModal" class="btn btn-sm btn-primary actionModal docModalBtn">Documents</button>
+                        <!-- <button class="btn btn-sm btn-warning">Upload1</button> -->
+                        <button data-bs-toggle="modal" data-bs-target="#showSurveyModal" class="btn btn-sm btn-warning actionModal surveyModalBtn">Fill Survey</button>
+                    </div>
+
+                    
+                </div>  
+            <% }) %> 
+        </div> 
+
+    </main>
+</div> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+<script src="/javascripts/pdfobject.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+        $("#myLeads").addClass('active');
+        $("#documentForm").hide();
+        $("#submitDoc_btn").hide();
+    })
+
+    var createDateValue = document.getElementById('createDate')
+    let todayDate = new Date();
+    //console.log(todayDate);
+     //var dd = todayDate.getDate();
+     var dd = String(todayDate.getDate()).padStart(2, '0')
+     //console.log(" dd :-"+dd)
+     // ==========================
+
+     //var mm = todayDate.getMonth() + 1;
+     var mm = String(todayDate.getMonth() + 1).padStart(2, '0')
+     //console.log("mm :-"+ mm)
+     var yyyy = todayDate.getFullYear();
+     //console.log("yyyy :-"+yyyy)
+     //var currentDate = `${dd}/${mm}/${yyyy}`
+     //var datePattern = dd + '/' + mm + '/' + yyyy;
+     var datePattern = yyyy + '-' + mm + '-' + dd
+     //console.log("datePattern :-"+datePattern)
+
+    
+     createDateValue.value = datePattern;
+
+    $("#uploadMoreDocBtn").click(function(){
+        //alert("working")        
+        $("#allDocumentsFieldshet").hide();
+        $("#documentForm").show();
+        $("#submitDoc_btn").show();
+    })
+
+    
+    $('.surveyCard').on('click','.surveyModalBtn',function(){
+        var cur_row = $(this).closest('.card');
+        var leadId = cur_row.find('.lead_id').text();
+        console.log(leadId)
+        $('#row_survey_leadId').val(leadId)
+        $('#row_leadId').val(leadId)
+        //console.log()
+        var surveyIdText = document.getElementById('survey_leadId');
+        surveyIdText.innerHTML = "Lead Id - <b>"+leadId+"</b>";
+
+
+        
+        // get bank Name
+        var bankName = cur_row.find('.bankName').text();
+        //console.log(bankName)
+        //alert(bankName)
+        document.getElementById('bankName').value=bankName;
+
+        //get branchName 
+        var branchName = cur_row.find('.branchName').text();
+        //console.log(branchName)
+        //alert(branchName)
+        document.getElementById('branchName').value=branchName;
+
+        //get branchEmail
+        var branchEmail = cur_row.find('.branchMail').text();
+        //console.log(branchEmail)
+        //alert(branchEmail)
+        document.getElementById('branchEmail').value=branchEmail;
+
+        //get borrowerName 
+        var borrowerName = cur_row.find('.borrowerName').text();
+        //console.log(borrowerName)
+        //alert(borrowerName)
+        document.getElementById('borrowerName').value=borrowerName;
+
+        //get propertyAddress 
+        var propertyAddress = cur_row.find('.leadAddress').text();
+        //console.log(propertyAddress)
+        //alert(propertyAddress)
+        document.getElementById('propertyAddress').value=propertyAddress;
+
+        getReviewDocumnents(leadId);
+    })
+
+    function getReviewDocumnents(leadId){
+        
+        var uploadDocMsg = document.getElementById('uploadDoc_Msg');
+          const ajaxReqNew = new XMLHttpRequest(); // create object
+          ajaxReqNew.open('GET',"<%= serverUrl %>/getDocumentsById/"+leadId,'TRUE'); // open request
+          //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+          ajaxReqNew.send();
+          ajaxReqNew.onload = function () {
+              let resp = null ;
+              uploadDocMsg.innerHTML = '';
+              //$('#uploadDocumentBody').innerHTML = '';
+              var documentBodyCard = document.getElementById('documentReview');
+              documentBodyCard.innerText = '';
+              try {
+                  resp = JSON.parse(ajaxReqNew.response)
+                  console.log(resp)    
+                  if(resp.status == 'error'){
+                      uploadDocMsg.innerHTML = (`
+                          <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                              <h4 class='alert-heading'>Something went wrong !</h4>
+                              <hr>
+                              <p class='mb-0'>`+resp.message+`</p>
+                          </div>
+                      `)
+                  }
+                  if(resp.status == 'warning'){
+                      uploadDocMsg.innerHTML = (`
+                      <div class='alert alert-warning alert-dismissible fade show w-50 mx-auto' role='alert'>
+                          <h4 class='alert-heading'>Server Response !</h4>
+                          <hr>
+                          <p class='mb-0'>`+resp.message+`</p>
+                      </div>
+                      `) 
+                  }
+                  if(resp.status == 'success'){
+                      console.log(resp.documents)
+  
+                      /*
+                          create_date: "2022-01-14T16:08:56.000Z"
+                          doc_id: 1
+                          document_name: "leadId-3_2022-01-14_iim_jammu_banner.png"
+                          document_type: "Registory"
+                          lead_id: 3
+                          remarks: "remarks here"
+                          uploaded_by: ""
+                      */
+  
+                      var reviewDocumentData = '';   
+                      $.each(resp.documents, function(key, value){
+                          console.log(key +':'+ value.document_name)
+                          var extensn = value.document_name.split('.').pop();
+                          console.log("extensn :-"+extensn);
+                          reviewDocumentData += '<div class="card documentsCard">';
+                            reviewDocumentData += '<div class="card-body">';
+                                  if(extensn == 'png' || extensn == 'jpeg' || extensn == 'jpg' || extensn == 'svg'){
+                                    reviewDocumentData += '<img src="/uploadLeadDocuments/'+value.document_name+'">';
+                                  }
+                                  if(extensn == 'PDF'){
+                                      //documentData += '<i class="far fa-file-pdf"></i>';
+                                      reviewDocumentData += '<img class="docs_img" src="/images/pdf.png"/>';
+                                  }
+                                  if(extensn == 'docx'){ //<i class="far fa-file-word"></i>
+                                      reviewDocumentData += '<img class="docs_img" src="/images/ms_word.png"/>';
+                                  }
+                                  if(extensn == 'xlsx'){ //<i class="far fa-file-excel"></i>
+                                  reviewDocumentData += '<img class="docs_img" src="/images/xlsx.png"/>';
+                                  }
+                              reviewDocumentData += '</div>';   
+                              reviewDocumentData += '<div class="card-footer">'; 
+                                reviewDocumentData += '<a download class="docFile_name" href="/uploadLeadDocuments/'+value.document_name+'">'+value.document_name+'</a>';
+                                reviewDocumentData += '<h5><span>Doc Type</span>'+value.document_type+'</h5>';
+                                reviewDocumentData += '<p>'+value.remarks+'</p>' 
+                                reviewDocumentData += '<h6><span>Create Date</span>'+value.create_date+'</h6>';  
+                                  //documentData += '<button type="button" class="btn btn-sm btn-primary" id="viewDocBtn"><i class="fas fa-eye"></i></button>';
+                                  //documentData += '<button type="button" class="btn btn-sm btn-primary" onclick="viewDocBtn('+value.doc_id+')"><i class="fas fa-eye"></i></button>';
+                              reviewDocumentData += '</div>';   
+                          reviewDocumentData += '</div>';   
+                      });
+                      $('#documentReview').append(reviewDocumentData); 
+  
+                  }        
+              } catch (e){
+                  console.error("could not parse Json...")
+                  alert(e)
+              }
+          }
+      
+    }
+
+
+    //uploadLeadDocuments , onclick="viewDocBtn('+value.document_name+')
+
+
+    //'.surveyModalBtn'
+   /* $('.viewDocBtn').on('click','.documentsCard',function(){
+        alert("working");
+        var cur_row = $(this).closest('.card-footer');
+        console.log(cur_row)
+        var docFileName = cur_row.find('.docFile_name').text();
+        console.log(docFileName)
+
+    });
+
+    $(".viewDocBtn").click(function (){
+        alert("working...")
+    })*/
+
+    /*$("#viewDocBtn").click(function (){
+        alert("working...")
+    })*/
+
+    /*function viewDocBtn(docId){
+        console.log(docId)
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('GET',"<%= serverUrl %>/getDocumentsByDocId/"+docId,'TRUE'); // open request
+          //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send();
+        ajaxReqNew.onload = function(){
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response)
+                console.log(resp.documents) 
+                let docFileName = resp.documents.document_name
+                console.log("docFileName :-"+docFileName)
+                /*var myState = {
+                    pdf: null,
+                    currentPage:1,
+                    zoom:1
+                }
+
+                //get pdf file
+                pdfjsLib.getDocumnent().then( doc => {
+                    myState.pdf = pdf;
+                    //console.log(myState.pdf)
+                    renderPdf();
+                })*/
+
+              /*  var canvas = document.getElementById("canvas_container"); //canvas_container ,pdf_reader
+                PDFObject.embed('/uploadLeadDocuments/'+docFileName , canvas)
+                
+            } catch (e){
+                console.error("could not parse Json...")
+                alert(e)
+            }
+        }
+    }*/
+
+    /*function renderPdf(){
+        myState.pdf.getPage(myState.currentPage).then((page) => {
+            var canvas = document.getElementById("pdf_reader");
+            var ctx = canvas.getContext('2d');
+            var viewport = page.getViewport(myState.zoom);
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            page.reader({
+                canvasContext:ctx,
+                viewport:viewport
+            });
+        })
+    }*/
+
+    //===============================
+
+    $(".documentsFieldset").hide();
+    $("#uploadMoreDocBtnReview").click(function(){
+        $(".documentsFieldset").show();
+    })
+    
+    
+    //======================== documentsModal=================
+    $('.surveyCard').on('click','.docModalBtn',function(){
+    //$('#showDocumentsModal').on('click',function(){    
+        $("#allDocumentsFieldshet").show();
+        $("#documentForm").hide();
+        var cur_row = $(this).closest('.card');
+        //console.log(cur_row)
+        //var status = cur_row.find('.status').text();
+        // console.log(status)
+        //var rows_st = $("#row_status").val()
+        //console.log(rows_st)
+
+        var leadId = cur_row.find('.lead_id').text();
+        console.log(leadId)
+        $('#row_leadId').val(leadId)
+        $('#row_survey_leadId').val(leadId)
+        //console.log()
+
+        var leadIdText = document.getElementById('doc_leadId');
+        var surveyIdText = document.getElementById('survey_leadId');
+        leadIdText.innerHTML = "Lead Id - <b>"+leadId+"</b>";
+        surveyIdText.innerHTML = "Lead Id - <b>"+leadId+"</b>";
+
+        
+
+        // =========user_id===========
+        /*var userId = cur_row.find('.user_ids').text();
+        // console.log(userId)
+        $('#row_userId').val(userId)*/
+
+        // =======order_status=========
+        /*var orderStatus = cur_row.find('.order_status').text();
+        // console.log("orderStatus:-"+orderStatus)
+
+        $('#row_status').val(orderStatus)
+        if(orderStatus == "delivered" || orderStatus =="cancel_order" ){
+           $('#row_status').prop('disabled', true)
+        }else{
+            $('#row_status').prop('disabled', false) 
+        }*/
+
+        getDocumnents(leadId);
+
+      
+
+    })
+
+    function getDocumnents(leadId){
+          //===============getDocuments================
+          //alert(leadId)
+          var uploadDocMsg = document.getElementById('uploadDoc_Msg');
+          const ajaxReqNew = new XMLHttpRequest(); // create object
+          ajaxReqNew.open('GET',"<%= serverUrl %>/getDocumentsById/"+leadId,'TRUE'); // open request
+          //ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+          ajaxReqNew.send();
+          ajaxReqNew.onload = () => {
+              let resp = null ;
+              uploadDocMsg.innerHTML = '';
+              //$('#uploadDocumentBody').innerHTML = '';
+              var documentBodyCard = document.getElementById('uploadDocumentBody');
+              documentBodyCard.innerText = '';
+              try {
+                  resp = JSON.parse(ajaxReqNew.response)
+                  console.log(resp)    
+                  if(resp.status == 'error'){
+                      uploadDocMsg.innerHTML = (`
+                          <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                              <h4 class='alert-heading'>Something went wrong !</h4>
+                              <hr>
+                              <p class='mb-0'>`+resp.message+`</p>
+                          </div>
+                      `)
+                  }
+                  if(resp.status == 'warning'){
+                      uploadDocMsg.innerHTML = (`
+                      <div class='alert alert-warning alert-dismissible fade show w-50 mx-auto' role='alert'>
+                          <h4 class='alert-heading'>Server Response !</h4>
+                          <hr>
+                          <p class='mb-0'>`+resp.message+`</p>
+                      </div>
+                      `) 
+                  }
+                  if(resp.status == 'success'){
+                      console.log(resp.documents)
+  
+                      /*
+                          create_date: "2022-01-14T16:08:56.000Z"
+                          doc_id: 1
+                          document_name: "leadId-3_2022-01-14_iim_jammu_banner.png"
+                          document_type: "Registory"
+                          lead_id: 3
+                          remarks: "remarks here"
+                          uploaded_by: ""
+                      */
+  
+                      var documentData = '';   
+                      $.each(resp.documents, function(key, value){
+                          console.log(key +':'+ value.document_name)
+                          var extensn = value.document_name.split('.').pop();
+                          console.log("extensn :-"+extensn);
+                          documentData += '<div class="card documentsCard">';
+                              documentData += '<div class="card-body">';
+                                  if(extensn == 'png' || extensn == 'jpeg' || extensn == 'jpg' || extensn == 'svg'){
+                                      documentData += '<img src="/uploadLeadDocuments/'+value.document_name+'">';
+                                  }
+                                  if(extensn == 'PDF'){
+                                      //documentData += '<i class="far fa-file-pdf"></i>';
+                                      documentData += '<img class="docs_img" src="/images/pdf.png"/>';
+                                  }
+                                  if(extensn == 'docx'){ //<i class="far fa-file-word"></i>
+                                      documentData += '<img class="docs_img" src="/images/ms_word.png"/>';
+                                  }
+                                  if(extensn == 'xlsx'){ //<i class="far fa-file-excel"></i>
+                                      documentData += '<img class="docs_img" src="/images/xlsx.png"/>';
+                                  }
+                              documentData += '</div>';   
+                              documentData += '<div class="card-footer">'; 
+                                  documentData += '<a download href="/uploadLeadDocuments/'+value.document_name+'">'+value.document_name+'</a>';
+                                  documentData += '<h5><span>Doc Type</span>'+value.document_type+'</h5>';
+                                  documentData += '<p>'+value.remarks+'</p>' 
+                                  documentData += '<h6><span>Create Date</span>'+value.create_date+'</h6>';  
+                              documentData += '</div>';   
+                          documentData += '</div>';   
+                      });
+                      $('#uploadDocumentBody').append(documentData); 
+                      /*var clientsData = '';
+                      $.each(resp.clients, function(key, value){
+                         //clientsData += '<label for="clientId'+key+'">' ;
+                         clientsData += '<tr>';
+                         clientsData += '<td><div><input type="radio" name="clientIds" onchange="clientId('+this.client_id+')" value="'+value.client_id+'" id="clientId'+key+'"></div></td>';    
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.borrower_name+'</div></label></td>'; 
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.last_name+'</div></label></td>'; 
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.mobile_number+'</div></label></td>'; 
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.contact_type+'</div></label></td>'; 
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.remarks+'</div></label></td>'; 
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.create_by+'</div></label></td>'; 
+                         clientsData += '<td><label for="clientId'+key+'"><div>'+value.create_date+'</div></label></td>'; 
+                         clientsData += '</tr>';
+                         //clientsData += '</label>';
+                      });    
+                      $("#clientBody").append(clientsData);*/
+                      
+  
+                  }        
+              } catch (e){
+                  console.error("could not parse Json...")
+                  alert(e)
+              }
+          }
+      
+    }
+
+
+    //======================== submitSurveyForm =================
+    const surveyMessageBoxId = document.getElementsByClassName('surveyServerResp');
+
+    $("#submitSurveyForm").on('submit', (e) => {
+        //console.log(e);
+        e.preventDefault();
+        //console.log($('#submitSurveyForm').serialize())
+        const ajaxReqNew = new XMLHttpRequest(); // create object
+        ajaxReqNew.open('POST',"<%= serverUrl %>/fillSurvey",'TRUE'); // open request
+        ajaxReqNew.setRequestHeader('content-type','application/x-www-form-urlencoded')
+        ajaxReqNew.send($('#submitSurveyForm').serialize());
+        ajaxReqNew.onprogress = function () {
+            console.log("on progress your request")
+            //$(".loadingSpinner").fadeIn();
+        }
+        ajaxReqNew.onload = function() {
+            let resp = null ;
+            try {
+                resp = JSON.parse(ajaxReqNew.response);
+                //console.log(resp);
+                //console.log("status :-"+resp.status)
+                if(resp.status == 'success'){
+
+                    subForm = document.querySelector("#submitSurveyForm")
+                    subForm.reset();
+                    $("#showSurveyModal").modal('hide');
+                    
+                    surveyMessageBoxId.innerHTML = (`
+                        <div class='alert alert-success alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Success !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                    
+                }
+                /*if(resp.status == 'warning'){
+                    messageBoxId.innerHTML = (`
+                        <div class='alert alert-warning alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Warning !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }*/
+                if(resp.status == 'error'){
+                    surveyMessageBoxId.innerHTML = (`
+                        <div class='alert alert-danger alert-dismissible fade show w-100' role='alert'>
+                            <h4 class='alert-heading'>Something went wrong !</h4>
+                            <hr>
+                            <p class='mb-0'>`+resp.message+`</p>
+                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                        </div>
+                    `)
+                }
+            } catch (e){
+                console.error("could not parse Json...")
+            }
+        }
+        
+    });
+
+
+</script> 

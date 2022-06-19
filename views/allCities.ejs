@@ -1,0 +1,145 @@
+<input type="checkbox" name="" id="sideMenu_Toggle">
+
+<!-- ===================side menu============= -->
+<%- include('common/sideMenu'); -%>
+
+<!-- ===================main content============= -->
+<div class="main_content">
+
+    <%- include('common/header'); -%>
+
+    <main>
+        <div class="page_header">
+            <div>
+                <h1><%= title %></h1><br/>
+                <!-- <small>Welcome ayt store. check reporting and review insights</small> -->
+            </div>
+        </div>
+
+        <hr class="line">
+
+          
+    
+        <div class="tableList_module"><!--addUserAdmin-->
+            <h2>City<small><a href="/addCity">Add  admin only <span><i class="fas fa-long-arrow-alt-right"></i></span></a></small></h2>
+            <div class="All_table_responsive">
+
+                <% if(messages.error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Something went wrong !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.error %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                <% } %>   
+
+                <% if(messages.success) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Success !</h4>
+                        <hr>
+                        <p class="mb-0"><%= messages.success %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                <% } %>  
+
+                <table width="100%" id="mydatatable" class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Status</th>
+                                <th>City Id</th>
+                                <th>City Code</th>
+                                <th>City Name</th>
+                                <th>Remarks</th>
+                                <th>Create By</th>
+                                <th>Create Date</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% cities.forEach(function(city) { %>
+                            <tr>
+                                <td>
+                                    <div class="action_td">
+                                    <!-- <a href="editProduct/<%= city.city_id %>"><i class="fas fa-edit"></i></a> -->
+                                    <a href="deleteCityById/<%= city.city_id %>"><i class="fas fa-trash-alt text-danger"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= city.status %>
+                                    </div>
+                                </td>
+                                <!--<td>
+                                    <form action="/ayt/orderStatus" method="POST">
+                                        <div class="listSelect">
+                                            <input type="hidden" name="order_id" value="<%= city.order_id %>">
+                                            <select name="status" value="<%= city.status %>" onchange="this.form.submit()" >
+                                                <option value="" >choose...</option>
+                                                <option value="confirmed" <% if(city.status == "confirmed") { %> selected <% } %>  >
+                                                    Confirmed</option>
+                                                <option value="cancel_order" <% if(city.status == "cancel_order") { %> selected <% } %>  >
+                                                        Cancel Order</option>    
+                                                <option value="prepared" <% if(city.status == "prepared") { %> selected <% }  %> >
+                                                    Prepared</option>
+                                                <option value="delivered" <% if(city.status == "delivered") { %> selected <% }  %> >
+                                                    Delivered
+                                                </option>
+                                                <option value="order_placed" <% if(city.status == "order_placed") { %> selected <% }  %> >
+                                                    Placed
+                                                </option>
+                                            </select>
+                                        </div>    
+                                    </form>
+
+                                </td>-->
+                                <td>
+                                    <div>
+                                        <%= city.city_id %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= city.city_code %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= city.city_name %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= city.remarks %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= city.create_by %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <%= city.create_date %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %> 
+                        </tbody>
+                </table>
+
+            </div>
+        </div>  
+    </main>
+    
+</div>    
+
+
+
+<script>
+    $(document).ready(function(){
+        $("#allCities").addClass('active');
+    })
+</script>
+        
